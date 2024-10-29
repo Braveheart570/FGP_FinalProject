@@ -23,6 +23,8 @@ public:
 
 	string getName() const;
 
+	void addAgent(Agent* newAgent);
+
 protected:
 	string m_Name;
 	string m_Description;

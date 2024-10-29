@@ -17,10 +17,23 @@ string userIn;
 
 int main()
 {
-    rooms.push_back(new Room());
-    rooms.push_back(new Room("room 2", "Who would have thought"));
+    rooms.push_back(new Room("Dark Room", "There is a light in anothe room"));
+    
+    rooms.push_back(new Room("Lit Room", "The light is dim but you can see two paths in front of you."));
+    
+    rooms.push_back(new Room("Stairway", "The steps are step, but you climb to a wooden hatch"));
+    
+    rooms.push_back(new Room("kitchen", "an old kitchen, cold and empty."));
+    //rooms[3]->addAgent();
+
     rooms[0]->addExit(rooms[1]);
     rooms[1]->addExit(rooms[0]);
+    rooms[1]->addExit(rooms[2]);
+    rooms[1]->addExit(rooms[3]);
+    rooms[2]->addExit(rooms[1]);
+    rooms[3]->addExit(rooms[2]);
+    
+    
 
     currentRoom = rooms[0];
     nextRoom = nullptr;
