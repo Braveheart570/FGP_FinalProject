@@ -11,9 +11,6 @@
     <Filter Include="Source Files\Item Base Class">
       <UniqueIdentifier>{22bcb639-c6b9-447e-bbbe-9478d6367a84}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Interaction Base Class">
-      <UniqueIdentifier>{fc091a8a-6f5f-4f7d-800c-d212483b766c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -34,12 +31,6 @@
     <ClCompile Include="Room.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Interaction.cpp">
-      <Filter>Source Files\Interaction Base Class</Filter>
-    </ClCompile>
-    <ClCompile Include="Door.cpp">
-      <Filter>Source Files\Interaction Base Class</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
@@ -56,12 +47,6 @@
     </ClInclude>
     <ClInclude Include="Room.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Interaction.h">
-      <Filter>Source Files\Interaction Base Class</Filter>
-    </ClInclude>
-    <ClInclude Include="Door.h">
-      <Filter>Source Files\Interaction Base Class</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

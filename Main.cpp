@@ -5,7 +5,6 @@
 using std::vector;
 using std::string;
 
-#include "door.h"
 #include "Room.h"
 
 
@@ -20,10 +19,13 @@ int main()
 {
     rooms.push_back(new Room());
     rooms.push_back(new Room("a second empty room"));
-    rooms[0]->addExit(new Door("old door", rooms[1]));
+    rooms[0]->addExit(rooms[1]);
 
     currentRoom = rooms[0];
     nextRoom = nullptr;
+
+
+    
 
     while (true) {
 
@@ -34,15 +36,15 @@ int main()
 
         currentRoom->displayRoom();
         std::getline(std::cin, userIn);
-        for (int c = 0; c < currentRoom->getExits().size(); c++) {
-            if (currentRoom->getExits()[c]->checkTrigger(userIn)) {
-                currentRoom->getExits()[c]->getResponse();
-                nextRoom = currentRoom->getExits()[c]->getTargetRoom();
+        for (int c = 0; c < currentRoom->getExits().size();c++) {
+            if (userIn == currentRoom->getExits()[c]->getDesc()) {
+                nextRoom = currentRoom->getExits()[c];
                 break;
             }
         }
-
     }
+    
+
 
 }
 

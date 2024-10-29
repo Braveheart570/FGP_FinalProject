@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include "Agent.h"
-#include "Door.h"
 
 using std::vector;
 using std::string;
@@ -16,12 +15,14 @@ public:
 
 	vector<Agent*> getAgents() const;
 
-	void addExit(Door* newExit);
+	void addExit(Room* newExit);
 
-	vector<Door*> getExits() const;
+	vector<Room*> getExits() const ;
+
+	string getDesc() const ;
 
 protected:
 	string m_Description;
-	vector<Door*> m_Exits;
 	vector<Agent*> m_Agents;
+	vector<Room*> m_Exits;
 };
