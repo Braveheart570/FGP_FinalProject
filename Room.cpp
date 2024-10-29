@@ -1,12 +1,14 @@
 #include "Room.h"
 
 
-Room::Room(string description) {
+Room::Room(string name, string description) {
 	m_Description = description;
+	m_Name = name;
 }
 
 
 void Room::displayRoom() {
+	std::cout << m_Name << std::endl;
 	std::cout << m_Description << std::endl;
 }
 
@@ -20,4 +22,8 @@ vector<Room*> Room::getExits() const {
 
 string Room::getDesc() const {
 	return m_Description;
+}
+
+string Room::getName() const {
+	return m_Name;
 }
