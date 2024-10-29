@@ -1,5 +1,6 @@
 #include "Agent.h"
 
-Agent::Agent(int health) {
-	m_Health = health;
+Agent::Agent(int maxHealth) {
+	m_Health = maxHealth;
+	m_MaxHealth = maxHealth;
 }

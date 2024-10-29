@@ -34,3 +34,7 @@ string Room::getName() const {
 void Room::addAgent(Agent* newAgent) {
 	m_Agents.push_back(newAgent);
 }
+
+vector<Agent*> Room::getAgents() const {
+	return m_Agents;
+}

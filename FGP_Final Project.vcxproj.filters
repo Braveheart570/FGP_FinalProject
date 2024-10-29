@@ -34,6 +34,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Agent Base Class</Filter>
     </ClCompile>
+    <ClCompile Include="Goblin.cpp">
+      <Filter>Source Files\Agent Base Class</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
@@ -52,6 +55,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>Source Files\Agent Base Class</Filter>
+    </ClInclude>
+    <ClInclude Include="Goblin.h">
       <Filter>Source Files\Agent Base Class</Filter>
     </ClInclude>
   </ItemGroup>
