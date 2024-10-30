@@ -2,7 +2,7 @@
 #include<iostream>
 #include <string>
 #include <vector>
-#include "Agent.h"
+#include "Enemy.h"
 
 using std::vector;
 using std::string;
@@ -13,7 +13,7 @@ public:
 
 	void displayRoom();
 
-	vector<Agent*> getAgents() const;
+	Enemy* getEnemy() const;
 
 	void addExit(Room* newExit);
 
@@ -23,11 +23,12 @@ public:
 
 	string getName() const;
 
-	void addAgent(Agent* newAgent);
+	void addEnemy(Enemy* enemyIn);
 
 protected:
 	string m_Name;
 	string m_Description;
-	vector<Agent*> m_Agents;
+	Enemy* m_Enemy;
+	//add npc class
 	vector<Room*> m_Exits;
 };

@@ -17,6 +17,7 @@ Weapon* Gun = new Weapon("Gun", 20, 50, statDefs[0]);
 Player* player;
 vector<Room*> rooms;
 
+Enemy* currentEnemy;
 Room* currentRoom;
 Room* nextRoom;
 string userIn;
@@ -36,7 +37,7 @@ int main()
     rooms.push_back(new Room("stairway", "The steps are step, but you climb to a wooden hatch"));
     
     rooms.push_back(new Room("kitchen", "an old kitchen, cold and empty."));
-    rooms[3]->addAgent(new Goblin);
+    rooms[3]->addEnemy(new Goblin);
 
 
 
@@ -51,7 +52,7 @@ int main()
 
     currentRoom = rooms[0];
     nextRoom = nullptr;
-
+    currentEnemy = nullptr;
 
     
 
@@ -65,11 +66,14 @@ int main()
         }
         currentRoom->displayRoom();
 
-        if (currentRoom->getAgents().size() > 0) {
+        if (currentRoom->getEnemy() != nullptr) {
             std::cout << "entering combat" << std::endl;
         }
 
-        while (currentRoom->getAgents().size() > 0) {
+
+
+
+        while (currentRoom->getEnemy() != nullptr) {
             
             // use item, flee, use weapon,
             while (true) {
@@ -85,14 +89,17 @@ int main()
                     for (int c = 0; c < player->getWeapons().size();c++) {
                         std::cout << player->getWeapons()[c]->getName() << std::endl; 
                     }
-
-                    while (true) {
+                    bool weaponSelected = false;
+                    while (weaponSelected == false) {
                         string weaponChoice;
                         std::getline(std::cin, weaponChoice);
                         for (int c = 0; c < player->getWeapons().size(); c++) {
                             if (weaponChoice == player->getWeapons()[c]->getName()) {
+
+                                int playerDmg = player->getDamage(player->getWeapons()[c]);
                                 // do thing
-                                break; // going to need another break
+                                weaponSelected = true;
+                                break;
                             }
                         }
                     }

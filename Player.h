@@ -18,17 +18,19 @@ public:
 
 	void addWeapon(Weapon* newWeapon);
 
+	int getDamage(Weapon* held);
+
 	vector<Weapon*> getWeapons() const;
 
 protected:
 	string m_Name;
-	int m_Level;
-	int m_skillPoints;
-	int m_Exp;
-	int m_Strength;
-	int m_Marksmanship;
-	int m_Fortitude;
-	int m_Fortune;
+	int m_Level = 0;
+	int m_skillPoints = 2;
+	int m_Exp = 0;
+	int m_Strength = 1;
+	int m_Marksmanship = 1;
+	int m_Fortitude = 1;
+	int m_Fortune = 1;
 
 	vector<Weapon*> m_Weapons;
 };

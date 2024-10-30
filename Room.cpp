@@ -4,6 +4,7 @@
 Room::Room(string name, string description) {
 	m_Description = description;
 	m_Name = name;
+	m_Enemy = nullptr;
 }
 
 
@@ -28,10 +29,10 @@ string Room::getName() const {
 	return m_Name;
 }
 
-void Room::addAgent(Agent* newAgent) {
-	m_Agents.push_back(newAgent);
+void Room::addEnemy(Enemy* inEnemy) {
+	m_Enemy = inEnemy;
 }
 
-vector<Agent*> Room::getAgents() const {
-	return m_Agents;
+Enemy* Room::getEnemy() const {
+	return m_Enemy;
 }

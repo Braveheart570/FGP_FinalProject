@@ -2,15 +2,6 @@
 
 Player::Player() : Agent(100) {
 
-    m_Level = 0;
-    m_Exp = 0;
-    m_skillPoints = 2;
-
-    m_Fortitude = 1;
-    m_Fortune = 1;
-    m_Strength = 1;
-    m_Marksmanship = 1;
-
     string intro = "Create your Character!";
     std::cout << string(intro.size(), '-') << std::endl;
     std::cout << intro << std::endl;
@@ -101,4 +92,26 @@ void Player::addWeapon(Weapon* newWeapon) {
 
 vector<Weapon*> Player::getWeapons() const {
     return m_Weapons;
+}
+
+
+int Player::getDamage(Weapon* held) {
+
+    if (held->getRelatedStats() == statDefs[0]) {
+        return held->getDamage() * m_Marksmanship;
+    } 
+    else if (held->getRelatedStats() == statDefs[1]) {
+        return held->getDamage() * m_Strength;
+    }
+    else if (held->getRelatedStats() == statDefs[2]) {
+        return held->getDamage();
+    }
+    else if (held->getRelatedStats() == statDefs[3]) {
+        return held->getDamage();
+    }
+    else {
+        std::cout << "THAT IS NOT A VALID STAT" << std::endl;
+        return 0;
+    }
+
 }
