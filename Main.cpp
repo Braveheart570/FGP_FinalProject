@@ -5,9 +5,14 @@
 using std::vector;
 using std::string;
 
+#include "StatDefinitions.h"
 #include "Room.h"
 #include "Player.h"
 #include "Goblin.h"
+#include "Weapon.h"
+
+Weapon* Sword = new Weapon("sword", 10, 10, statDefs[1]);
+Weapon* Gun = new Weapon("Gun", 20, 50, statDefs[0]);
 
 Player* player;
 vector<Room*> rooms;
@@ -21,6 +26,8 @@ int main()
 {
 
     player = new Player();
+    player->addWeapon(Sword);
+    player->addWeapon(Gun);
 
     rooms.push_back(new Room("dark room", "There is a light in anothe room"));
     
@@ -64,6 +71,46 @@ int main()
 
         while (currentRoom->getAgents().size() > 0) {
             
+            // use item, flee, use weapon,
+            while (true) {
+                std::cout << "What do you want to do?" << std::endl;
+                std::cout << "Use Item\nUse Weapon\nFlea\n" << std::endl;
+                
+                std::getline(std::cin, userIn);
+
+                if (userIn == "use item") {
+                    //todo
+                }
+                else if (userIn == "use weapon") {
+                    for (int c = 0; c < player->getWeapons().size();c++) {
+                        std::cout << player->getWeapons()[c]->getName() << std::endl; 
+                    }
+
+                    while (true) {
+                        string weaponChoice;
+                        std::getline(std::cin, weaponChoice);
+                        for (int c = 0; c < player->getWeapons().size(); c++) {
+                            if (weaponChoice == player->getWeapons()[c]->getName()) {
+                                // do thing
+                                break; // going to need another break
+                            }
+                        }
+                    }
+
+
+                }
+                else if (userIn == "flea") {
+                    //todo
+                }
+            }
+            
+
+
+            //check for death
+            //goblin retaliates
+
+            //check for death
+
         }
 
 

@@ -46,36 +46,36 @@ Player::Player() : Agent(100) {
             std::cout << "Type the stat you would like to spec into:" << std::endl;
             std::cin >> specTemp;
 
-            if (specTemp == "marksmanship") {
+            if (specTemp == statDefsLower[0]) {
                 m_Marksmanship++;
                 m_Level++;
                 m_skillPoints--;
                 system("CLS");
-                std::cout << "\nYou have upgraded your Marksmanship to " << m_Marksmanship << ".\n" << std::endl;
+                std::cout << "\nYou have upgraded your" << statDefs[0] << " to " << m_Marksmanship << ".\n" << std::endl;
                 break;
             }
-            else if (specTemp == "strength") {
+            else if (specTemp == statDefsLower[1]) {
                 m_Strength++;
                 m_Level++;
                 m_skillPoints--;
                 system("CLS");
-                std::cout << "\nYou have upgraded your Strength to " << m_Strength << ".\n" << std::endl;
+                std::cout << "\nYou have upgraded your" << statDefs[1] << " to " << m_Strength << ".\n" << std::endl;
                 break;
             }
-            else if (specTemp == "fortitude") {
+            else if (specTemp == statDefsLower[2]) {
                 m_Fortitude++;
                 m_Level++;
                 m_skillPoints--;
                 system("CLS");
-                std::cout << "\nYou have upgraded your Fortitude to " << m_Fortitude << ".\n" << std::endl;
+                std::cout << "\nYou have upgraded your" << statDefs[2] << " to " << m_Fortitude << ".\n" << std::endl;
                 break;
             }
-            else if (specTemp == "fortune") {
+            else if (specTemp == statDefsLower[3]) {
                 m_Fortune++;
                 m_Level++;
                 m_skillPoints--;
                 system("CLS");
-                std::cout << "\nYou have upgraded your Fortune to " << m_Fortune << "." << std::endl;
+                std::cout << "\nYou have upgraded your" << statDefs[3] << " to " << m_Fortune << "." << std::endl;
                 break;
             }
         }
@@ -89,8 +89,16 @@ Player::Player() : Agent(100) {
 }
 
 void Player::printStats() {
-    std::cout << "Marksmanship: " << m_Marksmanship << std::endl;
-    std::cout << "Strength:     " << m_Strength << std::endl;
-    std::cout << "Fortitude:    " << m_Fortitude << std::endl;
-    std::cout << "Fortune:      " << m_Fortune << std::endl;
+    std::cout << statDefs[0] << ": " << m_Marksmanship << std::endl;
+    std::cout << statDefs[1] << ":     " << m_Strength << std::endl;
+    std::cout << statDefs[2] << ":    " << m_Fortitude << std::endl;
+    std::cout << statDefs[3] << ":      " << m_Fortune << std::endl;
+}
+
+void Player::addWeapon(Weapon* newWeapon) {
+    m_Weapons.push_back(newWeapon);
+}
+
+vector<Weapon*> Player::getWeapons() const {
+    return m_Weapons;
 }

@@ -37,6 +37,9 @@
     <ClCompile Include="Goblin.cpp">
       <Filter>Source Files\Agent Base Class</Filter>
     </ClCompile>
+    <ClCompile Include="Consumable.cpp">
+      <Filter>Source Files\Item Base Class</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
@@ -59,6 +62,12 @@
     </ClInclude>
     <ClInclude Include="Goblin.h">
       <Filter>Source Files\Agent Base Class</Filter>
+    </ClInclude>
+    <ClInclude Include="Consumable.h">
+      <Filter>Source Files\Item Base Class</Filter>
+    </ClInclude>
+    <ClInclude Include="StatDefinitions.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

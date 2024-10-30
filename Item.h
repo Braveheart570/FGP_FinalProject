@@ -5,7 +5,9 @@ using std::string;
 
 class Item {
 public:
-	Item();
+	Item(string name, int value);
+
+	string getName() const;
 protected:
 	string m_Name;
 	int m_value;
