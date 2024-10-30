@@ -6,8 +6,8 @@ using std::vector;
 using std::string;
 
 #include "Room.h"
-#include "Goblin.h"
 #include "Player.h"
+#include "Goblin.h"
 
 Player* player;
 vector<Room*> rooms;
@@ -31,6 +31,8 @@ int main()
     rooms.push_back(new Room("kitchen", "an old kitchen, cold and empty."));
     rooms[3]->addAgent(new Goblin);
 
+
+
     rooms[0]->addExit(rooms[1]);
     rooms[1]->addExit(rooms[0]);
     rooms[1]->addExit(rooms[2]);
@@ -47,6 +49,8 @@ int main()
     
 
     while (true) {
+
+        system("CLS");
 
         if (nextRoom != nullptr) {
             currentRoom = nextRoom;
@@ -65,7 +69,11 @@ int main()
 
 
         // next action
-        std::getline(std::cin, userIn);
+        std::cout << "where would you like to go?" << std::endl;
+        for (int c = 0; c < currentRoom->getExits().size(); c++) {
+            std::cout << currentRoom->getExits()[c]->getName() << std::endl;
+        }
+        std::getline(std::cin,userIn);
         for (int c = 0; c < currentRoom->getExits().size();c++) {
             if (userIn == currentRoom->getExits()[c]->getName()) {
                 nextRoom = currentRoom->getExits()[c];

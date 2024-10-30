@@ -33,6 +33,7 @@ Player::Player() : Agent(100) {
         }
     }
 
+    system("CLS");
 
     //--- get player stats ---//
     while (m_skillPoints > 0) {
@@ -49,32 +50,41 @@ Player::Player() : Agent(100) {
                 m_Marksmanship++;
                 m_Level++;
                 m_skillPoints--;
+                system("CLS");
+                std::cout << "\nYou have upgraded your Marksmanship to " << m_Marksmanship << ".\n" << std::endl;
                 break;
             }
             else if (specTemp == "strength") {
                 m_Strength++;
                 m_Level++;
                 m_skillPoints--;
+                system("CLS");
+                std::cout << "\nYou have upgraded your Strength to " << m_Strength << ".\n" << std::endl;
                 break;
             }
             else if (specTemp == "fortitude") {
                 m_Fortitude++;
                 m_Level++;
                 m_skillPoints--;
+                system("CLS");
+                std::cout << "\nYou have upgraded your Fortitude to " << m_Fortitude << ".\n" << std::endl;
                 break;
             }
             else if (specTemp == "fortune") {
                 m_Fortune++;
                 m_Level++;
                 m_skillPoints--;
+                system("CLS");
+                std::cout << "\nYou have upgraded your Fortune to " << m_Fortune << "." << std::endl;
                 break;
             }
         }
         
-    }
-    
+        
 
+    }
     system("CLS");
+    std::cin.ignore();
 
 }
 
