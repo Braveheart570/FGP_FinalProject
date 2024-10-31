@@ -10,6 +10,9 @@ using std::string;
 #include "Player.h"
 #include "Goblin.h"
 #include "Weapon.h"
+#include "Consumable.h"
+
+//Consumable* BladeOil = new Consumable("blade oil");
 
 Weapon* Sword = new Weapon("sword", 10, 10, &statDefs[1]);
 Weapon* Gun = new Weapon("gun", 20, 50, &statDefs[0]);
