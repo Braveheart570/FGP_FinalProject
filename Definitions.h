@@ -34,8 +34,8 @@ const string classNamesLower[4] = {
 	"fool"
 };
 
-const vector<const StackableItem*> InventoryTemplate = { // NOT CURRENTLY IN USE MAY NOT NEED
-	new StackableItem("potion",50),
-	new StackableItem("blade oil",50)
-
-};
+//const vector<const StackableItem*> InventoryTemplate = { // NOT CURRENTLY IN USE MAY NOT NEED
+//	new StackableItem("potion",50),
+//	new StackableItem("blade oil",50)
+//
+//};

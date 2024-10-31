@@ -105,6 +105,28 @@ int main()
                         for (int c = 0; c < player->getStackbles().size(); c++) {
                             if (itemChoice == player->getStackbles()[c]->getName() && player->getStackbles()[c]->getQuantity() > 0) {
 
+                                switch (player->getStackbles()[c]->getItemEffect()) {
+
+                                case EFFECT_PLAYER_HEALTH:
+                                    player->takeDamage(player->getStackbles()[c]->getEffectPower() * -1);
+                                    break;
+                                case EFFECT_ENEMY_HEALTH:
+                                    //todo
+                                    break;
+                                case EFFECT_MARKSMANSHIP:
+                                    player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
+                                    break;
+                                case EFFECT_STRENGTH:
+                                    player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
+                                    break;
+                                case EFFECT_FORTITUDE:
+                                    player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
+                                    break;
+                                case EFFECT_FORTUNE:
+                                    player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
+                                    break;
+                                }
+
                                 std::cout << player->getStackbles()[c]->getName() << " used." << std::endl; // this is getting skipped
                                 player->getStackbles()[c]->addQuantity(-1);
                                 itemSelected = true;
@@ -126,6 +148,8 @@ int main()
 
                                 int playerDmg = player->getDamage(player->getWeapons()[c]);
                                 currentEnemy->takeDamage(playerDmg);
+
+                                player->clearBuffs();
 
                                 system("CLS");
 

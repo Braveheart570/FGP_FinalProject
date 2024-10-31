@@ -87,5 +87,8 @@
     <ClInclude Include="Merchant.h">
       <Filter>Source Files\Npc Base Class</Filter>
     </ClInclude>
+    <ClInclude Include="EffectENUM.h">
+      <Filter>Source Files\Other</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -174,10 +174,10 @@ vector<StackableItem*> Player::getStackbles() const {
 int Player::getDamage(Weapon* held) {
 
     if (*held->getRelatedStats() == statDefs[0]) {
-        return held->getDamage() * m_Marksmanship;
+        return held->getDamage() * (m_Marksmanship + m_MarksmanshipBuff);
     } 
     else if (*held->getRelatedStats() == statDefs[1]) {
-        return held->getDamage() * m_Strength;
+        return held->getDamage() * (m_Strength + m_StrengthBuff);
     }
     else if (*held->getRelatedStats() == statDefs[2]) {
         return held->getDamage();
@@ -192,3 +192,27 @@ int Player::getDamage(Weapon* held) {
 
 }
 
+void Player::buffStat(effect inEffect, int effectPower) {
+    switch (inEffect) {
+    case EFFECT_MARKSMANSHIP:
+        m_MarksmanshipBuff += effectPower;
+        break;
+    case EFFECT_STRENGTH:
+        m_StrengthBuff += effectPower;
+        break;
+    case EFFECT_FORTITUDE:
+        m_FortitudeBuff += effectPower;
+        break;
+    case EFFECT_FORTUNE:
+        m_FortuneBuff += effectPower;
+        break;
+
+    }
+}
+
+void Player::clearBuffs() {
+    m_MarksmanshipBuff = 0;
+    m_StrengthBuff = 0;
+    m_FortitudeBuff = 0;
+    m_FortuneBuff = 0;
+}

@@ -20,9 +20,13 @@ public:
 
 	int getDamage(Weapon* held);
 
+	void buffStat(effect inEffect, int effectPower);
+
 	vector<Weapon*> getWeapons() const;
 
 	vector<StackableItem*> getStackbles() const;
+
+	void clearBuffs();
 
 	void levelup();
 
@@ -37,9 +41,14 @@ protected:
 	int m_Fortitude = 1;
 	int m_Fortune = 1;
 
+	int m_MarksmanshipBuff = 0;
+	int m_StrengthBuff = 0;
+	int m_FortitudeBuff = 0;
+	int m_FortuneBuff = 0;
+
 	vector<Weapon*> m_Weapons;
 	const vector<StackableItem*> m_stackableItems = {
-		new StackableItem("potion",50),
-		new StackableItem("blade oil",50)
+		new StackableItem("potion",50, EFFECT_PLAYER_HEALTH, 10),
+		new StackableItem("blade oil",50, EFFECT_STRENGTH, 1)
 	};
 };
