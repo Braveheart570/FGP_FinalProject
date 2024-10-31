@@ -2,6 +2,8 @@
 
 Player::Player() : Agent(100) {
 
+
+
     string intro = "Create your Character!";
     std::cout << string(intro.size(), '-') << std::endl;
     std::cout << intro << std::endl;
@@ -162,6 +164,10 @@ void Player::addWeapon(Weapon* newWeapon) {
 
 vector<Weapon*> Player::getWeapons() const {
     return m_Weapons;
+}
+
+vector<StackableItem*> Player::getStackbles() const {
+    return m_stackableItems;
 }
 
 

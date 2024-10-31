@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
-    <ClCompile Include="Consumable.cpp" />
+    <ClCompile Include="StackableItem.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -141,7 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
-    <ClInclude Include="Consumable.h" />
+    <ClInclude Include="StackableItem.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="Item.h" />

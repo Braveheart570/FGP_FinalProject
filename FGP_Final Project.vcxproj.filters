@@ -40,7 +40,7 @@
     <ClCompile Include="Goblin.cpp">
       <Filter>Source Files\Agent Base Class</Filter>
     </ClCompile>
-    <ClCompile Include="Consumable.cpp">
+    <ClCompile Include="StackableItem.cpp">
       <Filter>Source Files\Item Base Class</Filter>
     </ClCompile>
     <ClCompile Include="Room.cpp">
@@ -72,7 +72,7 @@
     <ClInclude Include="Goblin.h">
       <Filter>Source Files\Agent Base Class</Filter>
     </ClInclude>
-    <ClInclude Include="Consumable.h">
+    <ClInclude Include="StackableItem.h">
       <Filter>Source Files\Item Base Class</Filter>
     </ClInclude>
     <ClInclude Include="Room.h">

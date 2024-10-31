@@ -4,7 +4,7 @@
 #include "Agent.h"
 #include <vector>
 #include "Definitions.h"
-#include "Consumable.h"
+#include "StackableItem.h"
 #include "Weapon.h"
 
 using std::string;
@@ -22,6 +22,8 @@ public:
 
 	vector<Weapon*> getWeapons() const;
 
+	vector<StackableItem*> getStackbles() const;
+
 	void levelup();
 
 protected:
@@ -36,6 +38,8 @@ protected:
 	int m_Fortune = 1;
 
 	vector<Weapon*> m_Weapons;
-
-	vector<Consumable*> m_Items;
+	const vector<StackableItem*> m_stackableItems = {
+		new StackableItem("potion",50),
+		new StackableItem("blade oil",50)
+	};
 };

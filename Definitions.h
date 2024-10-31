@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
+#include <vector>
+#include "StackableItem.h"
 
+using std::vector;
 using std::string;
 
 const string statDefs[4] = {
@@ -29,4 +32,10 @@ const string classNamesLower[4] = {
 	"brawler",
 	"juggernaut",
 	"fool"
+};
+
+const vector<const StackableItem*> InventoryTemplate = { // NOT CURRENTLY IN USE MAY NOT NEED
+	new StackableItem("potion",50),
+	new StackableItem("blade oil",50)
+
 };

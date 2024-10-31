@@ -10,7 +10,6 @@ using std::string;
 #include "Player.h"
 #include "Goblin.h"
 #include "Weapon.h"
-#include "Consumable.h"
 
 //Consumable* BladeOil = new Consumable("blade oil");
 
@@ -32,6 +31,8 @@ int main()
     player = new Player();
     player->addWeapon(Sword);
     player->addWeapon(Gun);
+    player->getStackbles()[0]->addQuantity(1);
+    player->getStackbles()[1]->addQuantity(1);
 
     rooms.push_back(new Room("dark room", "There is a light in anothe room"));
     
@@ -94,7 +95,22 @@ int main()
                 std::getline(std::cin, userIn);
 
                 if (userIn == "use item") {
-                    //todo
+                    for (int c = 0; c < player->getStackbles().size(); c++) {
+                        std::cout << player->getStackbles()[c]->getName() << string(20 - player->getStackbles()[c]->getName().length(), ' ') << player->getStackbles()[c]->getQuantity() << std::endl;
+                    }
+                    bool itemSelected = false;
+                    while (itemSelected == false) {
+                        string itemChoice;
+                        std::getline(std::cin, itemChoice);
+                        for (int c = 0; c < player->getStackbles().size(); c++) {
+                            if (itemChoice == player->getStackbles()[c]->getName()) {
+
+                                std::cout << player->getStackbles()[c]->getName() << " selected." << std::endl;
+                                itemSelected = true;
+                                break;
+                            }
+                        }
+                    }
                 }
                 else if (userIn == "use weapon") {
                     for (int c = 0; c < player->getWeapons().size();c++) {
