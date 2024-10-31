@@ -25,6 +25,9 @@ Room* nextRoom;
 string userIn;
 
 
+void isCurrentEnemyDead();
+
+
 int main()
 {
 
@@ -117,17 +120,7 @@ int main()
 
                                     currentEnemy->takeDamage(player->getStackbles()[c]->getEffectPower());
 
-                                    if (currentEnemy->checkDead()) {
-                                        std::cout << currentEnemy->getName() << " is dead" << std::endl;
-                                        std::cout << player->getName() << " earned " << currentEnemy->getGoldReward() << " gold and " << currentEnemy->getExpReward() << " exp." << std::endl;
-                                        player->addGold(currentEnemy->getGoldReward());
-                                        player->addExp(currentEnemy->getExpReward());
-                                        currentRoom->deleteEnemy();
-                                        currentEnemy = nullptr;
-                                    }
-                                    else {
-                                        std::cout << currentEnemy->getName() << " still stands" << std::endl;
-                                    }
+                                    isCurrentEnemyDead();
 
                                     break;
                                 case EFFECT_MARKSMANSHIP:
@@ -172,19 +165,9 @@ int main()
 
                                 system("CLS");
 
-                                if (currentEnemy->checkDead()) {
-                                    std::cout << currentEnemy->getName() << " is dead" << std::endl;
-                                    std::cout << player->getName() << " earned " << currentEnemy->getGoldReward() << " gold and " << currentEnemy->getExpReward() << " exp." << std::endl;
+                                isCurrentEnemyDead();
 
-                                    player->addGold(currentEnemy->getGoldReward());
-                                    player->addExp(currentEnemy->getExpReward());
-
-                                    currentRoom->deleteEnemy();
-                                    currentEnemy = nullptr;
-                                }
-                                else {
-                                    std::cout << currentEnemy->getName() << " still stands" << std::endl;
-
+                                if(currentEnemy != nullptr) {
 
                                     //Enemy attacks after player uses their weapon
 
@@ -260,12 +243,5 @@ void isCurrentEnemyDead() {
     }
     else {
         std::cout << currentEnemy->getName() << " still stands" << std::endl;
-
-
-        //Enemy attacks after player uses their weapon
-
-        std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
-        player->takeDamage(currentEnemy->getDamage());
-        // check death
     }
 }
