@@ -11,6 +11,12 @@
     <Filter Include="Source Files\Item Base Class">
       <UniqueIdentifier>{22bcb639-c6b9-447e-bbbe-9478d6367a84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Other">
+      <UniqueIdentifier>{c10bc609-7566-4abb-95af-550bce006fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Npc Base Class">
+      <UniqueIdentifier>{6bd2757f-f9fe-4ad9-b913-8cbbf6131c02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -28,9 +34,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\Agent Base Class</Filter>
     </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Agent Base Class</Filter>
     </ClCompile>
@@ -39,6 +42,15 @@
     </ClCompile>
     <ClCompile Include="Consumable.cpp">
       <Filter>Source Files\Item Base Class</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc.cpp">
+      <Filter>Source Files\Npc Base Class</Filter>
+    </ClCompile>
+    <ClCompile Include="Merchant.cpp">
+      <Filter>Source Files\Npc Base Class</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,9 +66,6 @@
     <ClInclude Include="Player.h">
       <Filter>Source Files\Agent Base Class</Filter>
     </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Source Files\Agent Base Class</Filter>
     </ClInclude>
@@ -66,8 +75,17 @@
     <ClInclude Include="Consumable.h">
       <Filter>Source Files\Item Base Class</Filter>
     </ClInclude>
-    <ClInclude Include="StatDefinitions.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Room.h">
+      <Filter>Source Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Definitions.h">
+      <Filter>Source Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>Source Files\Npc Base Class</Filter>
+    </ClInclude>
+    <ClInclude Include="Merchant.h">
+      <Filter>Source Files\Npc Base Class</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

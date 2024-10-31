@@ -3,8 +3,8 @@
 #include <string>
 #include "Agent.h"
 #include <vector>
-#include "StatDefinitions.h"
-
+#include "Definitions.h"
+#include "Consumable.h"
 #include "Weapon.h"
 
 using std::string;
@@ -36,4 +36,6 @@ protected:
 	int m_Fortune = 1;
 
 	vector<Weapon*> m_Weapons;
+
+	vector<Consumable*> m_Items;
 };

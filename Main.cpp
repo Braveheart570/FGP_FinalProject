@@ -5,7 +5,7 @@
 using std::vector;
 using std::string;
 
-#include "StatDefinitions.h"
+#include "Definitions.h"
 #include "Room.h"
 #include "Player.h"
 #include "Goblin.h"

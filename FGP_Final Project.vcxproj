@@ -133,6 +133,8 @@
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Merchant.cpp" />
+    <ClCompile Include="Npc.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Weapon.cpp" />
@@ -143,9 +145,11 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Merchant.h" />
+    <ClInclude Include="Npc.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
-    <ClInclude Include="StatDefinitions.h" />
+    <ClInclude Include="Definitions.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
