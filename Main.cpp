@@ -82,7 +82,7 @@ int main()
             currentEnemy = nullptr;
         }
 
-        while (currentRoom->getEnemy() != nullptr) {
+        while (currentEnemy != nullptr) {
             
             // use item, flee, use weapon,
             while (true) {
@@ -103,9 +103,10 @@ int main()
                         string itemChoice;
                         std::getline(std::cin, itemChoice);
                         for (int c = 0; c < player->getStackbles().size(); c++) {
-                            if (itemChoice == player->getStackbles()[c]->getName()) {
+                            if (itemChoice == player->getStackbles()[c]->getName() && player->getStackbles()[c]->getQuantity() > 0) {
 
-                                std::cout << player->getStackbles()[c]->getName() << " selected." << std::endl;
+                                std::cout << player->getStackbles()[c]->getName() << " used." << std::endl;
+                                player->getStackbles()[c]->addQuantity(-1);
                                 itemSelected = true;
                                 break;
                             }
