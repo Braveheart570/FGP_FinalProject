@@ -68,6 +68,7 @@ int main()
 
         if (currentRoom->getEnemy() != nullptr) {
             std::cout << "entering combat" << std::endl;
+            currentEnemy = currentRoom->getEnemy();
         }
 
 
