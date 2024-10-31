@@ -12,7 +12,7 @@ using std::string;
 #include "Weapon.h"
 
 Weapon* Sword = new Weapon("sword", 10, 10, &statDefs[1]);
-Weapon* Gun = new Weapon("Gun", 20, 50, &statDefs[0]);
+Weapon* Gun = new Weapon("gun", 20, 50, &statDefs[0]);
 
 Player* player;
 vector<Room*> rooms;
@@ -58,28 +58,35 @@ int main()
 
     while (true) {
 
-        system("CLS");
+        
 
         if (nextRoom != nullptr) {
             currentRoom = nextRoom;
             nextRoom = nullptr;
         }
-        currentRoom->displayRoom();
 
         if (currentRoom->getEnemy() != nullptr) {
-            std::cout << "entering combat" << std::endl;
+            system("CLS");
+            string combatMessage = "A Foe Stands before you!";
+            std::cout << string(combatMessage.length(), '-') << std::endl;
+            std::cout << combatMessage << std::endl;
+            std::cout << string(combatMessage.length(), '-') << std::endl;
             currentEnemy = currentRoom->getEnemy();
+            std::cout << "A " << currentEnemy->getName() << " confronted you in the " << currentRoom->getName() << "." << std::endl;
         }
-
-
-
+        else {
+            currentEnemy = nullptr;
+        }
 
         while (currentRoom->getEnemy() != nullptr) {
             
             // use item, flee, use weapon,
             while (true) {
-                std::cout << "What do you want to do?" << std::endl;
-                std::cout << "Use Item\nUse Weapon\nFlea\n" << std::endl;
+
+                std::cout << "\nYour health: " << player->getHealth() << "/" << player->getMaxHealth() << "         " << currentEnemy->getName() << " health: " << currentEnemy->getHealth() << "/" << currentEnemy->getMaxHealth() << std::endl;
+
+                std::cout << "\nWhat do you want to do?\n" << std::endl;
+                std::cout << "-Use Item\n-Use Weapon\n-Flea\n" << std::endl;
                 
                 std::getline(std::cin, userIn);
 
@@ -99,10 +106,12 @@ int main()
 
                                 int playerDmg = player->getDamage(player->getWeapons()[c]);
                                 currentEnemy->takeDamage(playerDmg);
+
+                                system("CLS");
+
                                 if (currentEnemy->checkDead()) {
                                     std::cout << "enemy is dead" << std::endl;
                                     currentRoom->deleteEnemy();
-                                    currentEnemy = nullptr; //idk what i'm doing with pointers lol
                                 }
                                 else {
                                     std::cout << "enemy still stands" << std::endl;
@@ -118,23 +127,27 @@ int main()
                 else if (userIn == "flea") {
                     //todo
                 }
+
+                system("CLS");
+
             }
             
 
+            
 
-            //check for death
-            //goblin retaliates
-
-            //check for death
 
         }
 
 
 
         // next action
-        std::cout << "where would you like to go?" << std::endl;
+        system("CLS");
+        currentRoom->displayRoom();
+
+
+        std::cout << "\nwhere would you like to go?\n" << std::endl;
         for (int c = 0; c < currentRoom->getExits().size(); c++) {
-            std::cout << currentRoom->getExits()[c]->getName() << std::endl;
+            std::cout << " - " << currentRoom->getExits()[c]->getName() << std::endl;
         }
         std::getline(std::cin,userIn);
         for (int c = 0; c < currentRoom->getExits().size();c++) {

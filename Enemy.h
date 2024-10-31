@@ -7,6 +7,8 @@ public:
 
 	int virtual getDamage() = 0;
 
+	string virtual getName() const = 0;
+
 protected:
 	int m_Damage;
 	int m_ExpReward;

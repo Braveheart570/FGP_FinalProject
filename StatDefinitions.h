@@ -16,3 +16,17 @@ const string statDefsLower[4] = {
 	"fortitude",
 	"fortune"
 };
+
+const string classNames[4] = {
+	"Duelist",
+	"Brawler",
+	"Juggernaut",
+	"Fool"
+};
+
+const string classNamesLower[4] = {
+	"duelist",
+	"brawler",
+	"juggernaut",
+	"fool"
+};

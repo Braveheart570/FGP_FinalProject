@@ -9,8 +9,8 @@ Room::Room(string name, string description) {
 
 
 void Room::displayRoom() {
-	std::cout << m_Name << std::endl;
-	std::cout << m_Description << "\n" << std::endl;
+	std::cout << "\n---" << m_Name << "---\n" << std::endl;
+	std::cout << m_Description << std::endl;
 }
 
 void Room::addExit(Room* newExit) {

@@ -15,3 +15,11 @@ bool Agent::checkDead() {
 		return false;
 	}
 }
+
+int Agent::getHealth() const {
+	return m_Health;
+}
+
+int Agent::getMaxHealth() const {
+	return m_MaxHealth;
+}
