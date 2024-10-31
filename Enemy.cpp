@@ -10,3 +10,11 @@ Enemy::Enemy(string name, int health, int damage, int goldReward, int expReward)
 string Enemy::getName() const {
 	return m_Name;
 }
+
+int Enemy::getGoldReward() const {
+	return m_GoldReward;
+}
+
+int Enemy::getExpReward() const {
+	return m_ExpReward;
+}

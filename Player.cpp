@@ -223,3 +223,21 @@ int Player::getGold() const {
 void Player::addGold(int inGold) {
     m_Gold += inGold;
 }
+
+void Player::addExp(int inExp) {
+    m_Exp += inExp;
+    while (m_Exp > 100) {
+        m_Exp -= 100;
+        m_skillPoints++;
+    }
+
+    if (m_skillPoints > 0) {
+        levelup();
+    }
+    
+
+}
+
+string Player::getName() const {
+    return m_Name;
+}

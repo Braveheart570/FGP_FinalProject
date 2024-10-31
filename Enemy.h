@@ -9,6 +9,12 @@ public:
 
 	string getName() const;
 
+
+	int getGoldReward() const;
+
+	int getExpReward() const;
+
+
 protected:
 	int m_Damage;
 	int m_ExpReward;

@@ -21,6 +21,9 @@ public:
 	int getDamage(Weapon* held);
 
 	int getGold() const;
+
+	string getName() const;
+
 	void addGold(int inGold);
 
 	void buffStat(effect inEffect, int effectPower);
@@ -30,6 +33,8 @@ public:
 	vector<StackableItem*> getStackbles() const;
 
 	void clearBuffs();
+
+	void addExp(int inExp);
 
 	void levelup();
 

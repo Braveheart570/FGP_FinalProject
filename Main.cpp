@@ -119,12 +119,16 @@ int main()
 
                                     if (currentEnemy->checkDead()) {
                                         std::cout << currentEnemy->getName() << " is dead" << std::endl;
+                                        std::cout << player->getName() << " earned " << currentEnemy->getGoldReward() << " gold and " << currentEnemy->getExpReward() << " exp." << std::endl;
+                                        player->addGold(currentEnemy->getGoldReward());
+                                        player->addExp(currentEnemy->getExpReward());
                                         currentRoom->deleteEnemy();
                                         currentEnemy = nullptr;
                                     }
                                     else {
                                         std::cout << currentEnemy->getName() << " still stands" << std::endl;
                                     }
+
                                     break;
                                 case EFFECT_MARKSMANSHIP:
                                     player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
@@ -170,6 +174,11 @@ int main()
 
                                 if (currentEnemy->checkDead()) {
                                     std::cout << currentEnemy->getName() << " is dead" << std::endl;
+                                    std::cout << player->getName() << " earned " << currentEnemy->getGoldReward() << " gold and " << currentEnemy->getExpReward() << " exp." << std::endl;
+
+                                    player->addGold(currentEnemy->getGoldReward());
+                                    player->addExp(currentEnemy->getExpReward());
+
                                     currentRoom->deleteEnemy();
                                     currentEnemy = nullptr;
                                 }
@@ -200,10 +209,13 @@ int main()
                 else if (userIn == "flea") {
                     //todo
                 }
+                else {
+                    system("CLS");
+                }
 
 
 
-                //system("CLS");
+                
 
 
         }
@@ -232,4 +244,28 @@ int main()
     
 
 
+}
+
+// to test
+void isCurrentEnemyDead() {
+    if (currentEnemy->checkDead()) {
+        std::cout << currentEnemy->getName() << " is dead" << std::endl;
+        std::cout << player->getName() << " earned " << currentEnemy->getGoldReward() << " gold and " << currentEnemy->getExpReward() << " exp." << std::endl;
+
+        player->addGold(currentEnemy->getGoldReward());
+        player->addExp(currentEnemy->getExpReward());
+
+        currentRoom->deleteEnemy();
+        currentEnemy = nullptr;
+    }
+    else {
+        std::cout << currentEnemy->getName() << " still stands" << std::endl;
+
+
+        //Enemy attacks after player uses their weapon
+
+        std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
+        player->takeDamage(currentEnemy->getDamage());
+        // check death
+    }
 }
