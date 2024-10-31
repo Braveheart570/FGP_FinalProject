@@ -105,7 +105,7 @@ int main()
                         for (int c = 0; c < player->getStackbles().size(); c++) {
                             if (itemChoice == player->getStackbles()[c]->getName() && player->getStackbles()[c]->getQuantity() > 0) {
 
-                                std::cout << player->getStackbles()[c]->getName() << " used." << std::endl;
+                                std::cout << player->getStackbles()[c]->getName() << " used." << std::endl; // this is getting skipped
                                 player->getStackbles()[c]->addQuantity(-1);
                                 itemSelected = true;
                                 break;
@@ -136,6 +136,9 @@ int main()
                                 else {
                                     std::cout << "enemy still stands" << std::endl;
                                 }
+
+
+
                                 weaponSelected = true;
                                 break;
                             }

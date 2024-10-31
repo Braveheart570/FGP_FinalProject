@@ -3,14 +3,15 @@
 
 class Enemy : public Agent {
 public:
-	Enemy(int health = 1, int damage = 0, int goldReward = 0, int expReward = 0);
+	Enemy(string name, int health = 1, int damage = 0, int goldReward = 0, int expReward = 0);
 
 	int virtual getDamage() = 0;
 
-	string virtual getName() const = 0;
+	string getName() const;
 
 protected:
 	int m_Damage;
 	int m_ExpReward;
 	int m_GoldReward;
+	string m_Name;
 };
