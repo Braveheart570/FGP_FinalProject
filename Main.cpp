@@ -11,8 +11,8 @@ using std::string;
 #include "Goblin.h"
 #include "Weapon.h"
 
-Weapon* Sword = new Weapon("sword", 10, 10, statDefs[1]);
-Weapon* Gun = new Weapon("Gun", 20, 50, statDefs[0]);
+Weapon* Sword = new Weapon("sword", 10, 10, &statDefs[1]);
+Weapon* Gun = new Weapon("Gun", 20, 50, &statDefs[0]);
 
 Player* player;
 vector<Room*> rooms;
@@ -37,7 +37,7 @@ int main()
     rooms.push_back(new Room("stairway", "The steps are step, but you climb to a wooden hatch"));
     
     rooms.push_back(new Room("kitchen", "an old kitchen, cold and empty."));
-    rooms[3]->addEnemy(new Goblin);
+    rooms[3]->addEnemy(new Goblin());
 
 
 
@@ -97,7 +97,13 @@ int main()
                             if (weaponChoice == player->getWeapons()[c]->getName()) {
 
                                 int playerDmg = player->getDamage(player->getWeapons()[c]);
-                                // do thing
+                                currentEnemy->takeDamage(playerDmg);
+                                if (currentEnemy->checkDead()) {
+                                    std::cout << "enemy is dead" << std::endl;
+                                }
+                                else {
+                                    std::cout << "enemy still stands" << std::endl;
+                                }
                                 weaponSelected = true;
                                 break;
                             }

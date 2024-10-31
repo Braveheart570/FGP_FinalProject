@@ -1,11 +1,11 @@
 #include "Weapon.h"
 
-Weapon::Weapon(string name, int value, int dmg,  string relatedStat) : Item(name,value) {
+Weapon::Weapon(string name, int value, int dmg,  string const * relatedStat) : Item(name,value) {
 	m_Damage = dmg;
 	m_RelatedStat = relatedStat;
 }
 
-string Weapon::getRelatedStats() const {
+string const * Weapon::getRelatedStats() const {
 	return m_RelatedStat;
 }
 

@@ -4,13 +4,13 @@
 
 class Weapon : public Item {
 public:
-	Weapon(string name, int value, int dmg,  string relatedStat);
+	Weapon(string name, int value, int dmg,  string const* relatedStat);
 
-	string getRelatedStats() const;
+	string const* getRelatedStats() const;
 
 	int getDamage() const;
 
 protected:
 	int m_Damage;
-	string  m_RelatedStat;
+	 string const* m_RelatedStat;
 };

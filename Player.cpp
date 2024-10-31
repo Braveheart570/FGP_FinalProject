@@ -97,16 +97,16 @@ vector<Weapon*> Player::getWeapons() const {
 
 int Player::getDamage(Weapon* held) {
 
-    if (held->getRelatedStats() == statDefs[0]) {
+    if (*held->getRelatedStats() == statDefs[0]) {
         return held->getDamage() * m_Marksmanship;
     } 
-    else if (held->getRelatedStats() == statDefs[1]) {
+    else if (*held->getRelatedStats() == statDefs[1]) {
         return held->getDamage() * m_Strength;
     }
-    else if (held->getRelatedStats() == statDefs[2]) {
+    else if (*held->getRelatedStats() == statDefs[2]) {
         return held->getDamage();
     }
-    else if (held->getRelatedStats() == statDefs[3]) {
+    else if (*held->getRelatedStats() == statDefs[3]) {
         return held->getDamage();
     }
     else {

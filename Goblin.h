@@ -7,7 +7,7 @@ class Goblin : public Enemy {
 
 public:
 	Goblin();
-	virtual void taunt();
+	virtual int getDamage();
 protected:
 
 

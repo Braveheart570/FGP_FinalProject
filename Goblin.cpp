@@ -4,6 +4,6 @@ Goblin::Goblin() : Enemy(50, 5, 10) {
 	
 }
 
-void Goblin::taunt() {
-	std::cout << "growl" << std::endl;
+int Goblin::getDamage() {
+	return m_Damage;
 }
