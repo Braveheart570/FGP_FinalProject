@@ -216,3 +216,10 @@ void Player::clearBuffs() {
     m_FortitudeBuff = 0;
     m_FortuneBuff = 0;
 }
+
+int Player::getGold() const {
+    return m_Gold;
+}
+void Player::addGold(int inGold) {
+    m_Gold += inGold;
+}

@@ -39,5 +39,4 @@ Enemy* Room::getEnemy() const {
 
 void Room::deleteEnemy() {
 	m_Enemy = nullptr;
-	delete m_Enemy;
 }

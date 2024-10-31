@@ -33,6 +33,7 @@ int main()
     player->addWeapon(Gun);
     player->getStackbles()[0]->addQuantity(1);
     player->getStackbles()[1]->addQuantity(1);
+    player->getStackbles()[2]->addQuantity(1);
 
     rooms.push_back(new Room("dark room", "There is a light in anothe room"));
     
@@ -50,7 +51,7 @@ int main()
     rooms[1]->addExit(rooms[2]);
     rooms[1]->addExit(rooms[3]);
     rooms[2]->addExit(rooms[1]);
-    rooms[3]->addExit(rooms[2]);
+    rooms[3]->addExit(rooms[1]);
     
     
 
@@ -85,7 +86,6 @@ int main()
         while (currentEnemy != nullptr) {
             
             // use item, flee, use weapon,
-            while (true) {
 
                 std::cout << "\nYour health: " << player->getHealth() << "/" << player->getMaxHealth() << "         " << currentEnemy->getName() << " health: " << currentEnemy->getHealth() << "/" << currentEnemy->getMaxHealth() << std::endl;
 
@@ -105,13 +105,26 @@ int main()
                         for (int c = 0; c < player->getStackbles().size(); c++) {
                             if (itemChoice == player->getStackbles()[c]->getName() && player->getStackbles()[c]->getQuantity() > 0) {
 
+                                system("CLS");
+                                std::cout << player->getStackbles()[c]->getName() << " used." << std::endl;
+
                                 switch (player->getStackbles()[c]->getItemEffect()) {
 
                                 case EFFECT_PLAYER_HEALTH:
                                     player->takeDamage(player->getStackbles()[c]->getEffectPower() * -1);
                                     break;
                                 case EFFECT_ENEMY_HEALTH:
-                                    //todo
+
+                                    currentEnemy->takeDamage(player->getStackbles()[c]->getEffectPower());
+
+                                    if (currentEnemy->checkDead()) {
+                                        std::cout << currentEnemy->getName() << " is dead" << std::endl;
+                                        currentRoom->deleteEnemy();
+                                        currentEnemy = nullptr;
+                                    }
+                                    else {
+                                        std::cout << currentEnemy->getName() << " still stands" << std::endl;
+                                    }
                                     break;
                                 case EFFECT_MARKSMANSHIP:
                                     player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
@@ -127,7 +140,9 @@ int main()
                                     break;
                                 }
 
-                                std::cout << player->getStackbles()[c]->getName() << " used." << std::endl; // this is getting skipped
+                                
+
+                                
                                 player->getStackbles()[c]->addQuantity(-1);
                                 itemSelected = true;
                                 break;
@@ -154,12 +169,23 @@ int main()
                                 system("CLS");
 
                                 if (currentEnemy->checkDead()) {
-                                    std::cout << "enemy is dead" << std::endl;
+                                    std::cout << currentEnemy->getName() << " is dead" << std::endl;
                                     currentRoom->deleteEnemy();
+                                    currentEnemy = nullptr;
                                 }
                                 else {
-                                    std::cout << "enemy still stands" << std::endl;
+                                    std::cout << currentEnemy->getName() << " still stands" << std::endl;
+
+
+                                    //Enemy attacks after player uses their weapon
+
+                                    std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
+                                    player->takeDamage(currentEnemy->getDamage());
+                                    // check death
                                 }
+
+
+                                
 
 
 
@@ -175,12 +201,9 @@ int main()
                     //todo
                 }
 
-                system("CLS");
 
-            }
-            
 
-            
+                //system("CLS");
 
 
         }
@@ -188,7 +211,7 @@ int main()
 
 
         // next action
-        system("CLS");
+        
         currentRoom->displayRoom();
 
 
@@ -203,29 +226,10 @@ int main()
                 break;
             }
         }
+
+        system("CLS");
     }
     
 
 
 }
-
-//room class
-//door states
-//location
-//description
-//npcs
-//enemies
-
-//npc class
-
-//enemy class
-
-//player class
-
-//item class
-
-//weapon class extends item
-
-//entity class?
-
-//merchant class extends npc
