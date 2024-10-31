@@ -25,6 +25,8 @@ public:
 
 	void addEnemy(Enemy* enemyIn);
 
+	void deleteEnemy();
+
 protected:
 	string m_Name;
 	string m_Description;

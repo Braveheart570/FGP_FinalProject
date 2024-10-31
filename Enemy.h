@@ -3,7 +3,7 @@
 
 class Enemy : public Agent {
 public:
-	Enemy(int health = 1, int damage = 0, int goldReward = 0);
+	Enemy(int health = 1, int damage = 0, int goldReward = 0, int expReward = 0);
 
 	int virtual getDamage() = 0;
 

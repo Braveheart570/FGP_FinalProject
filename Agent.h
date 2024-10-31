@@ -1,6 +1,6 @@
 #pragma once
 
-// any combat entities including player
+// any combat entities, including player
 class Agent {
 public:
 	Agent(int maxHealth = 1);

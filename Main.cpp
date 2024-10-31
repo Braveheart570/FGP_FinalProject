@@ -101,6 +101,8 @@ int main()
                                 currentEnemy->takeDamage(playerDmg);
                                 if (currentEnemy->checkDead()) {
                                     std::cout << "enemy is dead" << std::endl;
+                                    currentRoom->deleteEnemy();
+                                    currentEnemy = nullptr; //idk what i'm doing with pointers lol
                                 }
                                 else {
                                     std::cout << "enemy still stands" << std::endl;

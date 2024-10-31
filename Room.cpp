@@ -36,3 +36,8 @@ void Room::addEnemy(Enemy* inEnemy) {
 Enemy* Room::getEnemy() const {
 	return m_Enemy;
 }
+
+void Room::deleteEnemy() {
+	m_Enemy = nullptr;
+	delete m_Enemy;
+}
