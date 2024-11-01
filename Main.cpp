@@ -46,18 +46,28 @@ int main()
     
     rooms.push_back(new Room("stairway", "The steps are step, but you climb to a wooden hatch"));
     
-    rooms.push_back(new Room("kitchen", "an old kitchen, cold and empty."));
-    rooms[3]->addEnemy(new Goblin());
+    rooms.push_back(new Room("kitchen", "an old kitchen, cold and empty.", new Goblin()));
 
+    rooms.push_back(new Room("pantry", "A small empty pantry."));
+
+    rooms.push_back(new Room("empty field", "an open patch of land with a wooden hatch on the ground."));
 
 
     rooms[0]->addExit(rooms[1]);
+
     rooms[1]->addExit(rooms[0]);
     rooms[1]->addExit(rooms[2]);
     rooms[1]->addExit(rooms[3]);
+
     rooms[2]->addExit(rooms[1]);
+    rooms[2]->addExit(rooms[5]);
+
     rooms[3]->addExit(rooms[1]);
-    
+    rooms[3]->addExit(rooms[4]);
+
+    rooms[4]->addExit(rooms[3]);
+
+    rooms[5]->addExit(rooms[2]);
     
 
     currentRoom = rooms[0];
@@ -84,7 +94,7 @@ int main()
             std::cout << combatMessage << std::endl;
             std::cout << string(combatMessage.length(), '-') << std::endl;
             currentEnemy = currentRoom->getEnemy();
-            std::cout << "A " << currentEnemy->getName() << " confronted you in the " << currentRoom->getName() << "." << std::endl;
+            std::cout << currentEnemy->getName() << " confronted you in the " << currentRoom->getName() << "." << std::endl;
         }
         else {
             currentEnemy = nullptr;
@@ -97,7 +107,7 @@ int main()
                 std::cout << "\nYour health: " << player->getHealth() << "/" << player->getMaxHealth() << "         " << currentEnemy->getName() << " health: " << currentEnemy->getHealth() << "/" << currentEnemy->getMaxHealth() << std::endl;
 
                 std::cout << "\nWhat do you want to do?\n" << std::endl;
-                std::cout << "-Use Item\n-Use Weapon\n-Flea\n" << std::endl;
+                std::cout << "-Use Item\n-Use Weapon\n-Flee\n" << std::endl;
                 
                 std::getline(std::cin, userIn);
 
@@ -211,7 +221,7 @@ int main()
 
 
                 }
-                else if (userIn == "flea") {
+                else if (userIn == "flee") {
 
                     // number between 100 and 1
                     int randomNum = rand() % 101;
@@ -224,7 +234,7 @@ int main()
                     }
                     else {
                         system("CLS");
-                        std::cout <<"You failed to flea." << std::endl;
+                        std::cout <<"You failed to flee." << std::endl;
 
                         std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
                         player->takeDamage(currentEnemy->getDamage());

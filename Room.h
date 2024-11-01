@@ -3,13 +3,18 @@
 #include <string>
 #include <vector>
 #include "Enemy.h"
+#include "Npc.h"
 
 using std::vector;
 using std::string;
 
 class Room {
 public:
-	Room(string name = "Empty room", string description = "Strange, it's almost like someone forgot to put something here.");
+	Room(string name, string description);
+
+	Room(string name, string description, Enemy* enemy);
+
+	Room(string name, string description, Npc* npc);
 
 	void displayRoom();
 
@@ -23,14 +28,13 @@ public:
 
 	string getName() const;
 
-	void addEnemy(Enemy* enemyIn);
-
 	void deleteEnemy();
 
 protected:
 	string m_Name;
 	string m_Description;
 	Enemy* m_Enemy;
-	//add npc class
+	Npc* m_Npc;
+	
 	vector<Room*> m_Exits;
 };

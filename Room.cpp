@@ -4,7 +4,14 @@
 Room::Room(string name, string description) {
 	m_Description = description;
 	m_Name = name;
-	m_Enemy = nullptr;
+}
+
+Room::Room(string name, string description, Enemy* enemy) : Room(name, description) {
+	m_Enemy = enemy;
+}
+
+Room::Room(string name, string description, Npc* npc) : Room(name, description) {
+	m_Npc = npc;
 }
 
 
@@ -27,10 +34,6 @@ string Room::getDesc() const {
 
 string Room::getName() const {
 	return m_Name;
-}
-
-void Room::addEnemy(Enemy* inEnemy) {
-	m_Enemy = inEnemy;
 }
 
 Enemy* Room::getEnemy() const {
