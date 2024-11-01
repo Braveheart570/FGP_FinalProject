@@ -173,7 +173,15 @@ int main()
 
                                     std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
                                     player->takeDamage(currentEnemy->getDamage());
-                                    // check death
+                                    
+                                    if (player->getHealth() <= 0) {
+                                        std::cout << "--------------" << std::endl;
+                                        std::cout << " - YOU DIED - " << std::endl;
+                                        std::cout << "--------------" << std::endl;
+                                        return 0;
+                                    }
+
+
                                 }
 
 
@@ -229,7 +237,7 @@ int main()
 
 }
 
-// to test
+
 void isCurrentEnemyDead() {
     if (currentEnemy->checkDead()) {
         std::cout << currentEnemy->getName() << " is dead" << std::endl;
