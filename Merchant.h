@@ -5,6 +5,9 @@
 class Merchant : public Npc {
 public:
 	Merchant(string name, string intro);
+
+	virtual void talk();
+
 protected:
 	vector<Item> m_Inventory;
 };

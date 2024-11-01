@@ -29,7 +29,7 @@ public:
 
 	string getName() const;
 
-	void talk();
+	virtual void talk();
 
 	void addDialgue(Dialogue* dialogue);
 

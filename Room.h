@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "Enemy.h"
-#include "Npc.h"
+#include "Merchant.h"
 
 using std::vector;
 using std::string;

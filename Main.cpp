@@ -13,6 +13,7 @@ using std::string;
 #include "Player.h"
 #include "Goblin.h"
 #include "Weapon.h"
+#include "Merchant.h"
 
 
 Weapon* Sword = new Weapon("sword", 10, 10, &statDefs[1]);
@@ -41,20 +42,23 @@ int main()
     player->getStackbles()[1]->addQuantity(1);
     player->getStackbles()[2]->addQuantity(1);
 
-    rooms.push_back(new Room("dark room", "There is a light in anothe room"));
+    rooms.push_back(new Room("Dark Room", "There is a light in anothe room"));
     
-    rooms.push_back(new Room("lit room", "The light is dim but you can see two paths in front of you."));
+    rooms.push_back(new Room("Lit Room", "The light is dim but you can see two paths in front of you."));
     
-    rooms.push_back(new Room("stairway", "The steps are step, but you climb to a wooden hatch"));
+    rooms.push_back(new Room("Stairway", "The steps are step, but you climb to a wooden hatch"));
     
-    rooms.push_back(new Room("kitchen", "an old kitchen, cold and empty.", new Goblin()));
+    rooms.push_back(new Room("Kitchen", "an old kitchen, cold and empty.", new Goblin()));
 
-    rooms.push_back(new Room("pantry", "A small empty pantry with an old man hiding in it.", new Npc("Old Man", "A scared old man hiding in a pantry")));
+    rooms.push_back(new Room("Pantry", "A small empty pantry with an old man hiding in it.", new Npc("Old Man", "A scared old man hiding in a pantry")));
     rooms[4]->getNpc()->addDialgue(new Dialogue("What are you doing here?", "Hiding from that thing. But you saved me, thanks you!"));
     rooms[4]->getNpc()->addDialgue(new Dialogue("Do you know how to get out of here?", "Go back the way you came and take the stairs."));
 
-    rooms.push_back(new Room("empty field", "an open patch of land with a wooden hatch on the ground."));
+    rooms.push_back(new Room("Empty Field", "an open patch of land with a wooden hatch on the ground. You see a tent in the distance set up next to a cart full of goods."));
 
+    rooms.push_back(new Room("Merchant tent", "The camp of a traveling merchant", new Merchant("Traveling Merchant", "His eyes glisten at the sight of a potential customer.")));
+
+    Npc* test = new Merchant("", "");
 
     rooms[0]->addExit(rooms[1]);
 
@@ -71,6 +75,9 @@ int main()
     rooms[4]->addExit(rooms[3]);
 
     rooms[5]->addExit(rooms[2]);
+    rooms[5]->addExit(rooms[6]);
+
+    rooms[6]->addExit(rooms[5]);
     
 
     currentRoom = rooms[0];
@@ -318,7 +325,7 @@ int main()
         std::getline(std::cin,userIn);
         userIn = toLowerString(userIn);
         for (int c = 0; c < currentRoom->getExits().size();c++) {
-            if (userIn == currentRoom->getExits()[c]->getName()) {
+            if (userIn == toLowerString(currentRoom->getExits()[c]->getName())) {
                 nextRoom = currentRoom->getExits()[c];
                 break;
             }
