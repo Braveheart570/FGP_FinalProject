@@ -144,7 +144,16 @@ int main()
                                 itemSelected = true;
                                 break;
                             }
+
+                            
+
                         }
+
+                        if (itemChoice == "back") {
+                            system("CLS");
+                            break;
+                        }
+
                     }
                 }
                 else if (userIn == "use weapon") {
@@ -184,15 +193,16 @@ int main()
 
                                 }
 
-
-                                
-
-
-
                                 weaponSelected = true;
                                 break;
                             }
                         }
+
+                        if (weaponChoice == "back") {
+                            system("CLS");
+                            break;
+                        }
+
                     }
 
 

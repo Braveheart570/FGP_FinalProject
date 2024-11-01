@@ -93,7 +93,10 @@ Player::Player() : Agent(100) {
     system("CLS");
 
     //--- get player Class ---//
+    
     levelup();
+
+    m_Health = m_MaxHealth;
 
 }
 
@@ -143,7 +146,7 @@ void Player::levelup() {
             }
         }
 
-
+        m_MaxHealth = 100 + (10 * m_Fortitude);
 
     }
     system("CLS");

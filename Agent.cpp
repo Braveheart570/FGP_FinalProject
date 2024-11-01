@@ -5,6 +5,10 @@ Agent::Agent(int maxHealth) : m_Health(maxHealth), m_MaxHealth(maxHealth){
 
 void Agent::takeDamage(int dmg) {
 	m_Health = m_Health - dmg;
+
+	if (m_Health > m_MaxHealth) {
+		m_Health = m_MaxHealth;
+	}
 }
 
 bool Agent::checkDead() {
