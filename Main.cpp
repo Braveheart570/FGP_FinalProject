@@ -8,6 +8,7 @@ using std::vector;
 using std::string;
 
 #include "Definitions.h"
+#include "ToLowerString.h"
 #include "Room.h"
 #include "Player.h"
 #include "Goblin.h"
@@ -25,7 +26,6 @@ Room* currentRoom;
 Room* nextRoom;
 Room* lastRoom;
 string userIn;
-
 
 void isCurrentEnemyDead();
 
@@ -110,6 +110,7 @@ int main()
                 std::cout << "-Use Item\n-Use Weapon\n-Flee\n" << std::endl;
                 
                 std::getline(std::cin, userIn);
+                userIn = toLowerString(userIn);
 
                 if (userIn == "use item") {
                     for (int c = 0; c < player->getStackbles().size(); c++) {
@@ -117,8 +118,11 @@ int main()
                     }
                     bool itemSelected = false;
                     while (itemSelected == false) {
+
                         string itemChoice;
                         std::getline(std::cin, itemChoice);
+                        itemChoice = toLowerString(itemChoice);
+
                         for (int c = 0; c < player->getStackbles().size(); c++) {
                             if (itemChoice == player->getStackbles()[c]->getName() && player->getStackbles()[c]->getQuantity() > 0) {
 
@@ -176,8 +180,11 @@ int main()
                     }
                     bool weaponSelected = false;
                     while (weaponSelected == false) {
+
                         string weaponChoice;
                         std::getline(std::cin, weaponChoice);
+                        weaponChoice = toLowerString(weaponChoice);
+
                         for (int c = 0; c < player->getWeapons().size(); c++) {
                             if (weaponChoice == player->getWeapons()[c]->getName()) {
 
@@ -275,6 +282,7 @@ int main()
             std::cout << " - " << currentRoom->getExits()[c]->getName() << std::endl;
         }
         std::getline(std::cin,userIn);
+        userIn = toLowerString(userIn);
         for (int c = 0; c < currentRoom->getExits().size();c++) {
             if (userIn == currentRoom->getExits()[c]->getName()) {
                 nextRoom = currentRoom->getExits()[c];
@@ -288,6 +296,9 @@ int main()
 
 
 }
+
+
+
 
 
 void isCurrentEnemyDead() {

@@ -90,5 +90,8 @@
     <ClInclude Include="EffectENUM.h">
       <Filter>Source Files\Other</Filter>
     </ClInclude>
+    <ClInclude Include="ToLowerString.h">
+      <Filter>Source Files\Other</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
