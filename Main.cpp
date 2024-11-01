@@ -31,6 +31,8 @@ string userIn;
 
 void isCurrentEnemyDead();
 
+void linkRooms(Room* room1, Room* room2);
+
 
 int main()
 {
@@ -60,24 +62,13 @@ int main()
 
     Npc* test = new Merchant("", "");
 
-    rooms[0]->addExit(rooms[1]);
 
-    rooms[1]->addExit(rooms[0]);
-    rooms[1]->addExit(rooms[2]);
-    rooms[1]->addExit(rooms[3]);
-
-    rooms[2]->addExit(rooms[1]);
-    rooms[2]->addExit(rooms[5]);
-
-    rooms[3]->addExit(rooms[1]);
-    rooms[3]->addExit(rooms[4]);
-
-    rooms[4]->addExit(rooms[3]);
-
-    rooms[5]->addExit(rooms[2]);
-    rooms[5]->addExit(rooms[6]);
-
-    rooms[6]->addExit(rooms[5]);
+    linkRooms(rooms[0], rooms[1]);
+    linkRooms(rooms[1], rooms[2]);
+    linkRooms(rooms[1], rooms[3]);
+    linkRooms(rooms[2], rooms[5]);
+    linkRooms(rooms[3], rooms[4]);
+    linkRooms(rooms[5], rooms[6]);
     
 
     currentRoom = rooms[0];
@@ -339,7 +330,10 @@ int main()
 }
 
 
-
+void linkRooms(Room* room1, Room* room2) {
+    room1->addExit(room2);
+    room2->addExit(room1);
+}
 
 
 void isCurrentEnemyDead() {
