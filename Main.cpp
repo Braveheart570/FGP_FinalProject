@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <cstdlib>
 
 using std::vector;
 using std::string;
@@ -12,7 +13,6 @@ using std::string;
 #include "Goblin.h"
 #include "Weapon.h"
 
-//Consumable* BladeOil = new Consumable("blade oil");
 
 Weapon* Sword = new Weapon("sword", 10, 10, &statDefs[1]);
 Weapon* Gun = new Weapon("gun", 20, 50, &statDefs[0]);
@@ -212,10 +212,32 @@ int main()
 
                 }
                 else if (userIn == "flea") {
-                    system("CLS");
-                    std::cout << "you escaped!" << std::endl;
-                    currentEnemy = nullptr;
-                    nextRoom = lastRoom;
+
+                    // number between 100 and 1
+                    int randomNum = rand() % 101;
+
+                    if (randomNum <= currentEnemy->getFleaChance()) {
+                        system("CLS");
+                        std::cout << "you escaped!" << std::endl;
+                        currentEnemy = nullptr;
+                        nextRoom = lastRoom;
+                    }
+                    else {
+                        system("CLS");
+                        std::cout <<"You failed to flea." << std::endl;
+
+                        std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
+                        player->takeDamage(currentEnemy->getDamage());
+
+                        if (player->getHealth() <= 0) {
+                            std::cout << "--------------" << std::endl;
+                            std::cout << " - YOU DIED - " << std::endl;
+                            std::cout << "--------------" << std::endl;
+                            return 0;
+                        }
+                    }
+
+                    
                 }
                 else {
                     system("CLS");
