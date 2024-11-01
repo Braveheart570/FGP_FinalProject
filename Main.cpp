@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cmath>
 
 using std::vector;
 using std::string;
@@ -22,6 +23,7 @@ vector<Room*> rooms;
 Enemy* currentEnemy;
 Room* currentRoom;
 Room* nextRoom;
+Room* lastRoom;
 string userIn;
 
 
@@ -61,6 +63,7 @@ int main()
     currentRoom = rooms[0];
     nextRoom = nullptr;
     currentEnemy = nullptr;
+    lastRoom = nullptr;
 
     
 
@@ -69,6 +72,7 @@ int main()
         
 
         if (nextRoom != nullptr) {
+            lastRoom = currentRoom;
             currentRoom = nextRoom;
             nextRoom = nullptr;
         }
@@ -208,7 +212,10 @@ int main()
 
                 }
                 else if (userIn == "flea") {
-                    //todo
+                    system("CLS");
+                    std::cout << "you escaped!" << std::endl;
+                    currentEnemy = nullptr;
+                    nextRoom = lastRoom;
                 }
                 else {
                     system("CLS");
@@ -221,9 +228,12 @@ int main()
 
         }
 
+        // this is in case we fled a combat encounter
+        if (nextRoom != nullptr) {
+            continue;
+        }
 
-
-        // next action
+        // mavigation
         
         currentRoom->displayRoom();
 
@@ -251,10 +261,14 @@ int main()
 void isCurrentEnemyDead() {
     if (currentEnemy->checkDead()) {
         std::cout << currentEnemy->getName() << " is dead" << std::endl;
-        std::cout << player->getName() << " earned " << currentEnemy->getGoldReward() << " gold and " << currentEnemy->getExpReward() << " exp." << std::endl;
 
-        player->addGold(currentEnemy->getGoldReward());
-        player->addExp(currentEnemy->getExpReward());
+        int goldReward = std::floor(currentEnemy->getGoldReward() + (currentEnemy->getGoldReward() / 10) * player->getFortune());
+        int expReward = std::floor(currentEnemy->getExpReward() + (currentEnemy->getExpReward() / 10) * player->getFortune());
+
+        std::cout << player->getName() << " earned " << goldReward << " gold and " << expReward << " exp." << std::endl;
+
+        player->addGold(goldReward);
+        player->addExp(expReward);
 
         currentRoom->deleteEnemy();
         currentEnemy = nullptr;

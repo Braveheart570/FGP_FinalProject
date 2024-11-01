@@ -24,6 +24,8 @@ public:
 
 	string getName() const;
 
+	int getFortune() const;
+
 	void addGold(int inGold);
 
 	void buffStat(effect inEffect, int effectPower);

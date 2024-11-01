@@ -244,3 +244,7 @@ void Player::addExp(int inExp) {
 string Player::getName() const {
     return m_Name;
 }
+
+int Player::getFortune() const {
+    return m_Fortune;
+}
