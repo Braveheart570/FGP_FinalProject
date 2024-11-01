@@ -303,9 +303,10 @@ int main()
 
         if (talkWithNpc == true) {
             currentNpc->talk();
-            // need to reprint the room after talking with npc
-            currentRoom->displayRoom();
         }
+        system("CLS");
+        currentRoom->displayRoom();
+
 
 
         // mavigation
