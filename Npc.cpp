@@ -22,9 +22,9 @@ void Npc::talk() {
 	greet();
 	while (true) {
 		
-		std::cout << "\nask:" << std::endl;
+		std::cout << "\nInput number to ask:" << std::endl;
 		for (int c = 0; c < m_Dialogue.size();c++) {
-			std::cout << m_Dialogue[c]->m_Question << std::endl;
+			std::cout << c+1 << ":\t" << m_Dialogue[c]->m_Question << std::endl;
 		}
 
 		std::getline(std::cin, userIn);
@@ -36,7 +36,7 @@ void Npc::talk() {
 
 		questionAsked = false;
 		for (int c = 0; c < m_Dialogue.size(); c++) {
-			if (userIn == toLowerString(m_Dialogue[c]->m_Question)) {
+			if (userIn == std::to_string(c+1)) {
 				questionAsked = true;
 				system("CLS");
 				greet();
