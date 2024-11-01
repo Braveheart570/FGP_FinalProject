@@ -47,7 +47,7 @@ Player::Player() : Agent(100) {
         
 
         std::cin >> classTemp;
-        //classTemp = toLowerString(classTemp);
+        classTemp = toLowerString(classTemp);
         for (int c = 0; c < classNamesLower->size(); c++) {
             if (classTemp == classNamesLower[c]) {
                 m_Class = &classNamesLower[c];
@@ -112,7 +112,7 @@ void Player::levelup() {
         while (true) {
             std::cout << "\nType the stat you would like to spec into:" << std::endl;
             std::cin >> specTemp;
-            //specTemp = toLowerString(specTemp);
+            specTemp = toLowerString(specTemp);
 
             if (specTemp == statDefsLower[0]) {
                 m_Marksmanship++;

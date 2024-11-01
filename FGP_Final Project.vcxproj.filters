@@ -52,6 +52,9 @@
     <ClCompile Include="Merchant.cpp">
       <Filter>Source Files\Npc Base Class</Filter>
     </ClCompile>
+    <ClCompile Include="ToLowerString.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">

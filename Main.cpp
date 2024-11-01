@@ -49,7 +49,9 @@ int main()
     
     rooms.push_back(new Room("kitchen", "an old kitchen, cold and empty.", new Goblin()));
 
-    rooms.push_back(new Room("pantry", "A small empty pantry.", new Npc("Old Man", "A scared old man hiding in a pantry")));
+    rooms.push_back(new Room("pantry", "A small empty pantry with an old man hiding in it.", new Npc("Old Man", "A scared old man hiding in a pantry")));
+    rooms[4]->getNpc()->addDialgue(new Dialogue("What are you doing here?", "Hiding from that thing. But you saved me, thanks you!"));
+    rooms[4]->getNpc()->addDialgue(new Dialogue("Do you know how to get out of here?", "Go back the way you came and take the stairs."));
 
     rooms.push_back(new Room("empty field", "an open patch of land with a wooden hatch on the ground."));
 
@@ -278,10 +280,33 @@ int main()
         
         currentRoom->displayRoom();
 
+        // npc
+        bool talkWithNpc = false;
         if (currentRoom->getNpc() != nullptr) {
             currentNpc = currentRoom->getNpc();
-            currentNpc->greet();
+            
+            while (true) {
+                std::cout << "\n" << currentNpc->getName() << " is here. would you like to talk to them? y/n?" << std::endl;
+                std::getline(std::cin, userIn);
+                userIn = toLowerString(userIn);
+                if (userIn == "y") {
+                    talkWithNpc = true;
+                    break;
+                }
+                else if (userIn == "n") {
+                    talkWithNpc = false;
+                    break;
+                }
+            }
         }
+
+
+        if (talkWithNpc == true) {
+            currentNpc->talk();
+            // need to reprint the room after talking with npc
+            currentRoom->displayRoom();
+        }
+
 
         // mavigation
 

@@ -4,7 +4,7 @@
 #include "Agent.h"
 #include <vector>
 #include "Definitions.h"
-//#include "ToLowerString.h"
+#include "ToLowerString.h"
 #include "StackableItem.h"
 #include "Weapon.h"
 
