@@ -20,6 +20,9 @@ public:
 
 	Enemy* getEnemy() const;
 
+	Npc* getNpc() const;
+
+
 	void addExit(Room* newExit);
 
 	vector<Room*> getExits() const ;

@@ -4,7 +4,7 @@
 
 class Merchant : public Npc {
 public:
-	Merchant(string name);
+	Merchant(string name, string intro);
 protected:
 	vector<Item> m_Inventory;
 };

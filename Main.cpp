@@ -21,6 +21,7 @@ Weapon* Gun = new Weapon("gun", 20, 50, &statDefs[0]);
 Player* player;
 vector<Room*> rooms;
 
+Npc* currentNpc;
 Enemy* currentEnemy;
 Room* currentRoom;
 Room* nextRoom;
@@ -48,7 +49,7 @@ int main()
     
     rooms.push_back(new Room("kitchen", "an old kitchen, cold and empty.", new Goblin()));
 
-    rooms.push_back(new Room("pantry", "A small empty pantry."));
+    rooms.push_back(new Room("pantry", "A small empty pantry.", new Npc("Old Man", "A scared old man hiding in a pantry")));
 
     rooms.push_back(new Room("empty field", "an open patch of land with a wooden hatch on the ground."));
 
@@ -73,6 +74,7 @@ int main()
     currentRoom = rooms[0];
     nextRoom = nullptr;
     currentEnemy = nullptr;
+    currentNpc = nullptr;
     lastRoom = nullptr;
 
     
@@ -272,10 +274,16 @@ int main()
             continue;
         }
 
-        // mavigation
+        
         
         currentRoom->displayRoom();
 
+        if (currentRoom->getNpc() != nullptr) {
+            currentNpc = currentRoom->getNpc();
+            currentNpc->greet();
+        }
+
+        // mavigation
 
         std::cout << "\nwhere would you like to go?\n" << std::endl;
         for (int c = 0; c < currentRoom->getExits().size(); c++) {

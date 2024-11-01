@@ -43,3 +43,7 @@ Enemy* Room::getEnemy() const {
 void Room::deleteEnemy() {
 	m_Enemy = nullptr;
 }
+
+Npc* Room::getNpc() const {
+	return m_Npc;
+}

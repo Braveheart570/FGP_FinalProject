@@ -1,5 +1,5 @@
 #include "Merchant.h"
 
-Merchant::Merchant(string name) : Npc(name){
+Merchant::Merchant(string name, string intro) : Npc(name, intro){
 
 }
