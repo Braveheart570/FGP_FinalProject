@@ -12,6 +12,11 @@ public:
 
 	vector<StackableItem*> getStackbles() const;
 
+	vector<Weapon*> getWeapons() const;
+
+	void removeWeapon(int index);
+
+	void addWeapon(Weapon* newWeapon);
 
 protected:
 	vector<Weapon*> m_Weapons;

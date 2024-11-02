@@ -5,7 +5,7 @@ class Enemy : public Agent {
 public:
 	Enemy(string name, int health = 1, int damage = 0, int goldReward = 0, int expReward = 0, int fleaChance = 100);
 
-	int virtual getDamage() = 0;
+	int getDamage() const;
 
 	string getName() const;
 

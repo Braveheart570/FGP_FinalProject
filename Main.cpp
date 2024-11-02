@@ -11,13 +11,8 @@ using std::string;
 #include "ToLowerString.h"
 #include "Room.h"
 #include "Player.h"
-#include "Goblin.h"
 #include "Weapon.h"
 #include "Merchant.h"
-
-
-Weapon* Sword = new Weapon("sword", 10, 10, &statDefs[1]);
-Weapon* Gun = new Weapon("gun", 20, 50, &statDefs[0]);
 
 Player* player;
 vector<Room*> rooms;
@@ -40,8 +35,8 @@ int main()
 {
 
     player = new Player();
-    player->addWeapon(Sword);
-    player->addWeapon(Gun);
+    player->addWeapon(new Weapon("sword", 10, 10, &statDefs[1]));
+    player->addWeapon(new Weapon("gun", 20, 50, &statDefs[0]));
     player->getStackbles()[0]->addQuantity(1);
     player->getStackbles()[1]->addQuantity(1);
     player->getStackbles()[2]->addQuantity(1);
@@ -52,7 +47,7 @@ int main()
     
     rooms.push_back(new Room("Stairway", "The steps are step, but you climb to a wooden hatch"));
     
-    rooms.push_back(new Room("Kitchen", "an old kitchen, cold and empty.", new Goblin()));
+    rooms.push_back(new Room("Kitchen", "an old kitchen, cold and empty.", new Enemy("goblin", 50, 70, 10, 110, 60)));
 
     rooms.push_back(new Room("Pantry", "A small empty pantry with an old man hiding in it.", new Npc("Old Man", "A scared old man hiding in a pantry")));
     rooms[4]->getNpc()->addDialgue(new Dialogue("What are you doing here?", "Hiding from that thing. But you saved me, thanks you!"));
@@ -63,6 +58,8 @@ int main()
     rooms.push_back(new Room("Merchant tent", "The camp of a traveling merchant", new Merchant("Traveling Merchant", "His eyes glisten at the sight of a potential customer.")));
     rooms[6]->getMerchant()->getStackbles()[0]->addQuantity(3);
     rooms[6]->getMerchant()->getStackbles()[1]->addQuantity(1);
+    rooms[6]->getMerchant()->addWeapon(new Weapon("Silver Sword", 50, 100, &statDefs[1]));
+    rooms[6]->getMerchant()->addWeapon(new Weapon("Rifle", 70, 200, &statDefs[0]));
 
     Npc* test = new Merchant("", "");
 
@@ -74,6 +71,8 @@ int main()
     linkRooms(rooms[3], rooms[4]);
     linkRooms(rooms[5], rooms[6]);
     
+    //temp
+    linkRooms(rooms[0], rooms[6]);
 
     currentRoom = rooms[0];
     nextRoom = nullptr;
@@ -105,7 +104,7 @@ int main()
         else {
             currentEnemy = nullptr;
         }
-
+        // combat
         while (currentEnemy != nullptr) {
             
             // use item, flee, use weapon,
@@ -195,7 +194,7 @@ int main()
                         weaponChoice = toLowerString(weaponChoice);
 
                         for (int c = 0; c < player->getWeapons().size(); c++) {
-                            if (weaponChoice == player->getWeapons()[c]->getName()) {
+                            if (weaponChoice == toLowerString(player->getWeapons()[c]->getName())) {
 
                                 int playerDmg = player->getDamage(player->getWeapons()[c]);
                                 currentEnemy->takeDamage(playerDmg);
@@ -295,16 +294,16 @@ int main()
         if (currentRoom->getMerchant() != nullptr) {
             currentMerchant = currentRoom->getMerchant();
             
-            if (yesNoQuestion(currentMerchant->getName() + " is here. Would you like to trade with them?")) {
+            if (yesNoQuestion(currentMerchant->getName() + " is here. Would you like to buy from them?")) {
 
 
                 system("CLS");
-                currentMerchant->greet();
+                
 
 
                 while (true) {
-
-                    std::cout << "\nWhat kind of Item's would you like to trade?\nWeapons\nItems" << std::endl;
+                    currentMerchant->greet();
+                    std::cout << "\nWhat kind of Item's would you like to buy?\nWeapons\nItems" << std::endl;
 
                     std::getline(std::cin, userIn);
                     userIn = toLowerString(userIn);
@@ -314,34 +313,30 @@ int main()
                     }
                     else if (userIn == "weapons") {
 
-                    }
-                    else if (userIn == "items") {
+                        // print merchant weapons
+                        std::cout << "\nWeapon              dmg\tvalue" << std::endl;
+                        for (int c = 0; c < currentMerchant->getWeapons().size(); c++) {
+                            std::cout << currentMerchant->getWeapons()[c]->getName() << string(20 - currentMerchant->getWeapons()[c]->getName().size(), ' ') << currentMerchant->getWeapons()[c]->getDamage() << "\t" << currentMerchant->getWeapons()[c]->getValue() << std::endl;
 
-                        std::cout << std::endl;
-
-                        for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
-                            if (currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
-                                continue;
-                            }
-                            std::cout << currentMerchant->getStackbles()[c]->getName() << string(20 - currentMerchant->getStackbles()[c]->getName().length(), ' ') << currentMerchant->getStackbles()[c]->getQuantity() << std::endl;
                         }
-
+                        // buy loop
                         std::cout << "\nWhat would you like to buy?" << std::endl;
                         std::cout << "Gold: " << player->getGold() << std::endl;
 
                         std::getline(std::cin, userIn);
                         userIn = toLowerString(userIn);
-
-                        for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
-                            if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() > 0) {
+                        bool weaponPurchaseAtempted = false;
+                        for (int c = 0; c < currentMerchant->getWeapons().size(); c++) {
+                            if (userIn == toLowerString(currentMerchant->getWeapons()[c]->getName())) {
                                 system("CLS");
-                                if (player->getGold() >= currentMerchant->getStackbles()[c]->getValue()) {
-                                    currentMerchant->getStackbles()[c]->addQuantity(-1);
-                                    player->getStackbles()[c]->addQuantity(1);
+                                if (player->getGold() >= currentMerchant->getWeapons()[c]->getValue()) {
 
-                                    std::cout << "You bought " << currentMerchant->getStackbles()[c]->getName() << "!" << std::endl;
-                                    currentMerchant->greet();
-
+                                    std::cout << "\nyou bought the " << currentMerchant->getWeapons()[c]->getName() << "!\n" << std::endl;
+                                    player->addGold(currentMerchant->getWeapons()[c]->getValue() * -1);
+                                    player->addWeapon(currentMerchant->getWeapons()[c]);
+                                    currentMerchant->removeWeapon(c);
+                                    
+                                    weaponPurchaseAtempted = true;
                                     break;
                                 }
                                 else {
@@ -352,15 +347,61 @@ int main()
                                 
                             }
                         }
+                        if (weaponPurchaseAtempted == false) {
+                            system("CLS");
+                        }
+                        
+
+                    }
+                    else if (userIn == "items") {
+
+                        std::cout << std::endl;
+
+                        //print merchant items
+                        std::cout << "item                value\tmerchant\tyou" << std::endl;
+                        for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
+                            if (currentMerchant->getStackbles()[c]->getQuantity() <= 0 && player->getStackbles()[c]->getQuantity() <= 0) {
+                                continue;
+                            }
+                            
+                            std::cout << currentMerchant->getStackbles()[c]->getName() << string(20 - currentMerchant->getStackbles()[c]->getName().length(), ' ') << currentMerchant->getStackbles()[c]->getValue() << "\t\t" << currentMerchant->getStackbles()[c]->getQuantity();
+                            std::cout << "\t\t" << player->getStackbles()[c]->getQuantity() << std::endl;
+                        }
+
+                        // buy loop
+                        std::cout << "\nWhat would you like to buy?" << std::endl;
+                        std::cout << "Gold: " << player->getGold() << std::endl;
+
+                        std::getline(std::cin, userIn);
+                        userIn = toLowerString(userIn);
+                        bool itemPurchaseAtempted = false;
+                        for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
+                            if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() > 0) {
+                                system("CLS");
+                                if (player->getGold() >= currentMerchant->getStackbles()[c]->getValue()) {
+                                    currentMerchant->getStackbles()[c]->addQuantity(-1);
+                                    player->getStackbles()[c]->addQuantity(1);
+                                    player->addGold(currentMerchant->getStackbles()[c]->getValue() * -1);
+                                    itemPurchaseAtempted = true;
+                                    std::cout << "\nYou bought " << currentMerchant->getStackbles()[c]->getName() << "!\n" << std::endl;
+                                    currentMerchant->greet();
+
+                                    break;
+                                }
+                                else {
+                                    std::cout << "You can't aford that" << std::endl;
+                                    break;
+                                }
+                            }
+                        }
+                        if (itemPurchaseAtempted = false) {
+                            system("CLS");
+                        }
+                        
 
                     }
 
 
-
-                    //if (questionAsked == false) {
-                    //	system("CLS");
-                    //	greet();
-                    //}
                 }
             }
         }

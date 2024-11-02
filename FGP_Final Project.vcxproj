@@ -130,7 +130,6 @@
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="StackableItem.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Merchant.cpp" />
@@ -145,7 +144,6 @@
     <ClInclude Include="EffectENUM.h" />
     <ClInclude Include="StackableItem.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Goblin.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Merchant.h" />
     <ClInclude Include="Npc.h" />

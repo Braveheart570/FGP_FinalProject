@@ -23,3 +23,7 @@ int Enemy::getExpReward() const {
 int Enemy::getFleaChance() const {
 	return m_fleaChance;
 }
+
+int Enemy::getDamage() const {
+	return m_Damage;
+}

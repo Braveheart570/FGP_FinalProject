@@ -15,8 +15,7 @@ Player::Player() : Agent(100) {
     while (true) {
         std::cout << "\n What is your name:\t";
 
-        //std::getline(std::cin, nameTemp); // this line was being weird on the second time the program loops
-        std::cin >> nameTemp;
+        std::getline(std::cin, nameTemp);
         if (nameTemp != "" && nameTemp.size() < 20) {
             m_Name = nameTemp;
             break;
