@@ -8,3 +8,7 @@ Item::Item(string name, int value) {
 string Item::getName() const {
 	return m_Name;
 }
+
+int Item::getValue() const {
+	return m_value;
+}

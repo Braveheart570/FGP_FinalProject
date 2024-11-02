@@ -16,12 +16,15 @@ public:
 
 	Room(string name, string description, Npc* npc);
 
+	Room(string name, string description, Merchant* merchant);
+
 	void displayRoom();
 
 	Enemy* getEnemy() const;
 
 	Npc* getNpc() const;
 
+	Merchant* getMerchant() const;
 
 	void addExit(Room* newExit);
 
@@ -38,6 +41,7 @@ protected:
 	string m_Description;
 	Enemy* m_Enemy;
 	Npc* m_Npc;
+	Merchant* m_Merchant;
 	
 	vector<Room*> m_Exits;
 };

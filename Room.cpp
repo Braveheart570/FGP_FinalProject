@@ -14,6 +14,10 @@ Room::Room(string name, string description, Npc* npc) : Room(name, description) 
 	m_Npc = npc;
 }
 
+Room::Room(string name, string description, Merchant* merchant) : Room(name, description) {
+	m_Merchant = merchant;
+}
+
 
 void Room::displayRoom() {
 	std::cout << "\n---" << m_Name << "---\n" << std::endl;
@@ -38,6 +42,10 @@ string Room::getName() const {
 
 Enemy* Room::getEnemy() const {
 	return m_Enemy;
+}
+
+Merchant* Room::getMerchant() const {
+	return m_Merchant;
 }
 
 void Room::deleteEnemy() {

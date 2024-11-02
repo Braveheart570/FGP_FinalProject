@@ -44,7 +44,7 @@ public:
 protected:
 	string m_Name;
 	string const* m_Class;
-	int m_Gold = 10;
+	int m_Gold = 50;
 	int m_Level = 0;
 	int m_skillPoints = 2;
 	int m_Exp = 0;
@@ -60,8 +60,8 @@ protected:
 
 	vector<Weapon*> m_Weapons;
 	const vector<StackableItem*> m_stackableItems = {
-		new StackableItem("potion",50, EFFECT_PLAYER_HEALTH, 10),
-		new StackableItem("blade oil",50, EFFECT_STRENGTH, 1),
-		new StackableItem("dynamite",50, EFFECT_ENEMY_HEALTH, 50)
+		new StackableItem("Potion",50, EFFECT_PLAYER_HEALTH, 10),
+		new StackableItem("Blade oil",50, EFFECT_STRENGTH, 1),
+		new StackableItem("Dynamite",50, EFFECT_ENEMY_HEALTH, 50)
 	};
 };
