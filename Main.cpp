@@ -97,6 +97,8 @@ int main()
     linkRooms(rooms[5], rooms[7]);
     linkRooms(rooms[7], rooms[8]);
     linkRooms(rooms[8], rooms[9]);
+
+    linkRooms(rooms[0], rooms[6]);
     
     //init pointers
     currentRoom = rooms[0];
@@ -365,32 +367,39 @@ int main()
                         std::cout << "\nWhat would you like to buy?" << std::endl;
                         std::cout << "Gold: " << player->getGold() << std::endl;
 
-                        std::getline(std::cin, userIn);
-                        userIn = toLowerString(userIn);
-                        bool weaponPurchaseAtempted = false;
-                        for (int c = 0; c < currentMerchant->getWeapons().size(); c++) {
-                            if (userIn == toLowerString(currentMerchant->getWeapons()[c]->getName())) {
+                        bool exitBuyLoop = false;
+                        while (exitBuyLoop == false) {
+                            std::getline(std::cin, userIn);
+                            userIn = toLowerString(userIn);
+
+                            if (userIn == "back") {
                                 system("CLS");
-                                if (player->getGold() >= currentMerchant->getWeapons()[c]->getValue()) {
-
-                                    std::cout << "\nyou bought the " << currentMerchant->getWeapons()[c]->getName() << "!\n" << std::endl;
-                                    player->addGold(currentMerchant->getWeapons()[c]->getValue() * -1);
-                                    player->addWeapon(currentMerchant->getWeapons()[c]);
-                                    currentMerchant->removeWeapon(c);
-                                    
-                                    weaponPurchaseAtempted = true;
-                                    break;
-                                }
-                                else {
-                                    std::cout << "You can't afford that" << std::endl;
-                                    break;
-                                }
-
-                                
+                                exitBuyLoop = true;
                             }
-                        }
-                        if (weaponPurchaseAtempted == false) {
-                            system("CLS");
+
+                            for (int c = 0; c < currentMerchant->getWeapons().size(); c++) {
+                                if (userIn == toLowerString(currentMerchant->getWeapons()[c]->getName())) {
+                                    system("CLS");
+                                    if (player->getGold() >= currentMerchant->getWeapons()[c]->getValue()) {
+
+                                        std::cout << "\nyou bought the " << currentMerchant->getWeapons()[c]->getName() << "!\n" << std::endl;
+                                        player->addGold(currentMerchant->getWeapons()[c]->getValue() * -1);
+                                        player->addWeapon(currentMerchant->getWeapons()[c]);
+                                        currentMerchant->removeWeapon(c);
+
+                                        exitBuyLoop = true;
+                                        break;
+                                    }
+                                    else {
+                                        std::cout << "You can't afford that" << std::endl;
+                                        exitBuyLoop = true;
+                                        break;
+                                    }
+
+
+                                }
+                            }
+
                         }
                         
 
@@ -414,36 +423,47 @@ int main()
                         std::cout << "\nWhat would you like to buy?" << std::endl;
                         std::cout << "Gold: " << player->getGold() << std::endl;
 
-                        std::getline(std::cin, userIn);
-                        userIn = toLowerString(userIn);
-                        bool itemPurchaseAtempted = false;
-                        for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
-                            if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() > 0) {
-                                system("CLS");
-                                if (player->getGold() >= currentMerchant->getStackbles()[c]->getValue()) {
-                                    currentMerchant->getStackbles()[c]->addQuantity(-1);
-                                    player->getStackbles()[c]->addQuantity(1);
-                                    player->addGold(currentMerchant->getStackbles()[c]->getValue() * -1);
-                                    itemPurchaseAtempted = true;
-                                    std::cout << "\nYou bought " << currentMerchant->getStackbles()[c]->getName() << "!\n" << std::endl;
+                        bool exitBuyLoop = false;
+                        while (exitBuyLoop == false) {
+                            std::getline(std::cin, userIn);
+                            userIn = toLowerString(userIn);
 
-                                    break;
-                                }
-                                else if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
-                                    std::cout << "Out of Stock" << std::endl;
-                                    break;
-                                }
-                                else {
-                                    std::cout << "You can't afford that" << std::endl;
-                                    break;
+                            if (userIn == "back") {
+                                system("CLS");
+                                exitBuyLoop = true;
+                            }
+
+                            for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
+                                if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() > 0) {
+                                    system("CLS");
+                                    if (player->getGold() >= currentMerchant->getStackbles()[c]->getValue()) {
+
+                                        currentMerchant->getStackbles()[c]->addQuantity(-1);
+                                        player->getStackbles()[c]->addQuantity(1);
+                                        player->addGold(currentMerchant->getStackbles()[c]->getValue() * -1);
+                                        std::cout << "\nYou bought " << currentMerchant->getStackbles()[c]->getName() << "!\n" << std::endl;
+                                        exitBuyLoop = true;
+                                        break;
+                                    }
+                                    else if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
+                                        std::cout << "Out of Stock" << std::endl;
+                                        exitBuyLoop = true;
+                                        break;
+                                    }
+                                    else {
+                                        std::cout << "You can't afford that" << std::endl;
+                                        exitBuyLoop = true;
+                                        break;
+                                    }
+
                                 }
                             }
                         }
-                        if (itemPurchaseAtempted = false) {
-                            system("CLS");
-                        }
                         
 
+                    }
+                    else {
+                        system("CLS");
                     }
 
 
