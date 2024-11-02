@@ -34,6 +34,22 @@ bool yesNoQuestion(string question);
 int main()
 {
 
+    std::cout << "--------------------" << std::endl;
+    std::cout << "welcome to the game!" << std::endl;
+    std::cout << "--------------------\n" << std::endl;
+    std::cout << "How to play:" << std::endl;
+    std::cout << "type in what you want to do, type \"back\" if you want to back out of any menus (not navigation)" << std::endl;
+    std::cout << "\n pro tip:\n hit the up arrow on your keyboard to use your last command!\n\n" << std::endl;
+
+    if (yesNoQuestion("Read to play?") == false) {
+        return 0;
+    }
+
+
+    system("CLS");
+
+
+    //player init
     player = new Player();
     player->addWeapon(new Weapon("sword", 10, 10, &statDefs[1]));
     player->addWeapon(new Weapon("gun", 20, 50, &statDefs[0]));
@@ -41,28 +57,36 @@ int main()
     player->getStackbles()[1]->addQuantity(1);
     player->getStackbles()[2]->addQuantity(1);
 
-    rooms.push_back(new Room("Dark Room", "There is a light in anothe room"));
+    //world init
+    rooms.push_back(new Room("Dark Room", "There is a light in another room"));
     
     rooms.push_back(new Room("Lit Room", "The light is dim but you can see two paths in front of you."));
     
-    rooms.push_back(new Room("Stairway", "The steps are step, but you climb to a wooden hatch"));
+    rooms.push_back(new Room("Stairway", "The steps are steep, but you climb to a wooden hatch"));
     
-    rooms.push_back(new Room("Kitchen", "an old kitchen, cold and empty.", new Enemy("goblin", 50, 70, 10, 110, 60)));
+    rooms.push_back(new Room("Kitchen", "an old kitchen, cold and empty.", new Enemy("goblin", 50, 20, 10, 110, 60)));
 
     rooms.push_back(new Room("Pantry", "A small empty pantry with an old man hiding in it.", new Npc("Old Man", "A scared old man hiding in a pantry")));
     rooms[4]->getNpc()->addDialgue(new Dialogue("What are you doing here?", "Hiding from that thing. But you saved me, thanks you!"));
     rooms[4]->getNpc()->addDialgue(new Dialogue("Do you know how to get out of here?", "Go back the way you came and take the stairs."));
 
-    rooms.push_back(new Room("Empty Field", "an open patch of land with a wooden hatch on the ground. You see a tent in the distance set up next to a cart full of goods."));
+    rooms.push_back(new Room("Grassy Plain", "an open patch of land with a wooden hatch on the ground. You see a tent in the distance set up next to a cart full of goods."));
 
     rooms.push_back(new Room("Merchant tent", "The camp of a traveling merchant", new Merchant("Traveling Merchant", "His eyes glisten at the sight of a potential customer.")));
     rooms[6]->getMerchant()->getStackbles()[0]->addQuantity(3);
     rooms[6]->getMerchant()->getStackbles()[1]->addQuantity(1);
+    rooms[6]->getMerchant()->getStackbles()[3]->addQuantity(1);
     rooms[6]->getMerchant()->addWeapon(new Weapon("Silver Sword", 50, 100, &statDefs[1]));
     rooms[6]->getMerchant()->addWeapon(new Weapon("Rifle", 70, 200, &statDefs[0]));
 
-    Npc* test = new Merchant("", "");
+    rooms.push_back(new Room("Evil looking Building", " Your outside of a decidedly evil looking building with a frantic game deveoper standing outside.", new Npc("Game Developer", "He looks tired, frustrated, and frantic")));
+    rooms[7]->getNpc()->addDialgue(new Dialogue("Who are you?", "Not important! The fact is that this assignment is due in like 30 minutes and this game needs an ending. so get in there and kill something big or whatever"));
+    rooms[7]->getNpc()->addDialgue(new Dialogue("What is this place?", "it's whatever you want it to be man... I have so little time left I had to break the fourth wall just to get this thing finished!"));
+    rooms[7]->getNpc()->addDialgue(new Dialogue("Why did I wake up in a dark room?", "Because it was the first thing I thought of. What you want a story? HA! Budy I don't even have time to balance the combat in this game let alone add a story. At this point this is basically a glorified tech demo. But it works!"));
 
+    rooms.push_back(new Room("Boss Room", "Imagine a final boss room, ya thats basically it.", new Enemy("My Own Ambition", 500, 70, 200, 200, 10)));
+    rooms.push_back(new Room("The End", "The end of the game."));
+    
 
     linkRooms(rooms[0], rooms[1]);
     linkRooms(rooms[1], rooms[2]);
@@ -70,10 +94,11 @@ int main()
     linkRooms(rooms[2], rooms[5]);
     linkRooms(rooms[3], rooms[4]);
     linkRooms(rooms[5], rooms[6]);
+    linkRooms(rooms[5], rooms[7]);
+    linkRooms(rooms[7], rooms[8]);
+    linkRooms(rooms[8], rooms[9]);
     
-    //temp
-    linkRooms(rooms[0], rooms[6]);
-
+    //init pointers
     currentRoom = rooms[0];
     nextRoom = nullptr;
     currentEnemy = nullptr;
@@ -81,19 +106,31 @@ int main()
     lastRoom = nullptr;
 
     
-
+    
+    // --- game loop --- //
     while (true) {
 
         
-
+        // --- Changing rooms --- //
         if (nextRoom != nullptr) {
             lastRoom = currentRoom;
             currentRoom = nextRoom;
             nextRoom = nullptr;
         }
 
-        if (currentRoom->getEnemy() != nullptr) {
+        if (currentRoom == rooms[9]) {
             system("CLS");
+            std::cout << "--------------" << std::endl;
+            std::cout << " - YOU WON! - " << std::endl;
+            std::cout << "--------------" << std::endl;
+            return 0;
+        }
+
+
+
+        // --- Combat header (only meant to show up once)--- //
+        if (currentRoom->getEnemy() != nullptr) {
+            //system("CLS");
             string combatMessage = "A Foe Stands before you!";
             std::cout << string(combatMessage.length(), '-') << std::endl;
             std::cout << combatMessage << std::endl;
@@ -104,167 +141,172 @@ int main()
         else {
             currentEnemy = nullptr;
         }
-        // combat
+
+        // --- Combat Loop --- //
         while (currentEnemy != nullptr) {
             
             // use item, flee, use weapon,
 
-                std::cout << "\nYour health: " << player->getHealth() << "/" << player->getMaxHealth() << "         " << currentEnemy->getName() << " health: " << currentEnemy->getHealth() << "/" << currentEnemy->getMaxHealth() << std::endl;
+            std::cout << "\nYour health: " << player->getHealth() << "/" << player->getMaxHealth() << "         " << currentEnemy->getName() << " health: " << currentEnemy->getHealth() << "/" << currentEnemy->getMaxHealth() << std::endl;
+            std::cout << "\nWhat do you want to do?\n" << std::endl;
+            std::cout << "-Use Item\n-Use Weapon\n-Flee\n" << std::endl;
+               
+            
+            std::getline(std::cin, userIn);
+            userIn = toLowerString(userIn);
 
-                std::cout << "\nWhat do you want to do?\n" << std::endl;
-                std::cout << "-Use Item\n-Use Weapon\n-Flee\n" << std::endl;
-                
-                std::getline(std::cin, userIn);
-                userIn = toLowerString(userIn);
+            // --- using item --- //
+            if (userIn == "use item") {
 
-                if (userIn == "use item") {
-                    for (int c = 0; c < player->getStackbles().size(); c++) {
-                        if (player->getStackbles()[c]->getQuantity() <= 0) {
-                            continue;
-                        }
-                        std::cout << player->getStackbles()[c]->getName() << string(20 - player->getStackbles()[c]->getName().length(), ' ') << player->getStackbles()[c]->getQuantity() << std::endl;
+                //print items
+                for (int c = 0; c < player->getStackbles().size(); c++) {
+                    if (player->getStackbles()[c]->getQuantity() <= 0) {
+                        continue;
                     }
-                    bool itemSelected = false;
-                    while (itemSelected == false) {
+                    std::cout << player->getStackbles()[c]->getName() << string(20 - player->getStackbles()[c]->getName().length(), ' ') << player->getStackbles()[c]->getQuantity() << std::endl;
+                }
 
-                        string itemChoice;
-                        std::getline(std::cin, itemChoice);
-                        itemChoice = toLowerString(itemChoice);
+                // get item
+                bool itemSelected = false;
+                while (itemSelected == false) {
 
-                        for (int c = 0; c < player->getStackbles().size(); c++) {
-                            if (itemChoice == toLowerString(player->getStackbles()[c]->getName()) && player->getStackbles()[c]->getQuantity() > 0) {
+                    string itemChoice;
+                    std::getline(std::cin, itemChoice);
+                    itemChoice = toLowerString(itemChoice);
 
-                                system("CLS");
-                                std::cout << player->getStackbles()[c]->getName() << " used." << std::endl;
+                    for (int c = 0; c < player->getStackbles().size(); c++) {
+                        if (itemChoice == toLowerString(player->getStackbles()[c]->getName()) && player->getStackbles()[c]->getQuantity() > 0) {
 
-                                switch (player->getStackbles()[c]->getItemEffect()) {
+                            system("CLS");
+                            std::cout << player->getStackbles()[c]->getName() << " used." << std::endl;
 
-                                case EFFECT_PLAYER_HEALTH:
-                                    player->takeDamage(player->getStackbles()[c]->getEffectPower() * -1);
-                                    break;
-                                case EFFECT_ENEMY_HEALTH:
+                            switch (player->getStackbles()[c]->getItemEffect()) {
 
-                                    currentEnemy->takeDamage(player->getStackbles()[c]->getEffectPower());
+                            case EFFECT_PLAYER_HEALTH:
+                                player->takeDamage(player->getStackbles()[c]->getEffectPower() * -1);
+                                break;
+                            case EFFECT_ENEMY_HEALTH:
 
-                                    isCurrentEnemyDead();
+                                currentEnemy->takeDamage(player->getStackbles()[c]->getEffectPower());
+                                isCurrentEnemyDead();
 
-                                    break;
-                                case EFFECT_MARKSMANSHIP:
-                                    player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
-                                    break;
-                                case EFFECT_STRENGTH:
-                                    player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
-                                    break;
-                                case EFFECT_FORTITUDE:
-                                    player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
-                                    break;
-                                case EFFECT_FORTUNE:
-                                    player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
-                                    break;
-                                }
-
-                                
-
-                                
-                                player->getStackbles()[c]->addQuantity(-1);
-                                itemSelected = true;
+                                break;
+                            case EFFECT_MARKSMANSHIP:
+                                player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
+                                break;
+                            case EFFECT_STRENGTH:
+                                player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
+                                break;
+                            case EFFECT_FORTITUDE:
+                                player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
+                                break;
+                            case EFFECT_FORTUNE:
+                                player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
                                 break;
                             }
+
+                                
+
+                                
+                            player->getStackbles()[c]->addQuantity(-1);
+                            itemSelected = true;
+                            break;
+                        }
 
                             
 
-                        }
-
-                        if (itemChoice == "back") {
-                            system("CLS");
-                            break;
-                        }
-
                     }
+
+                    if (itemChoice == "back") {
+                        system("CLS");
+                        break;
+                    }
+
                 }
-                else if (userIn == "use weapon") {
-                    for (int c = 0; c < player->getWeapons().size();c++) {
-                        std::cout << toLowerString(player->getWeapons()[c]->getName()) << std::endl;
-                    }
-                    bool weaponSelected = false;
-                    while (weaponSelected == false) {
+            }
+            else if (userIn == "use weapon") {
+                for (int c = 0; c < player->getWeapons().size();c++) {
+                    std::cout << toLowerString(player->getWeapons()[c]->getName()) << std::endl;
+                }
+                bool weaponSelected = false;
+                while (weaponSelected == false) {
 
-                        string weaponChoice;
-                        std::getline(std::cin, weaponChoice);
-                        weaponChoice = toLowerString(weaponChoice);
+                    string weaponChoice;
+                    std::getline(std::cin, weaponChoice);
+                    weaponChoice = toLowerString(weaponChoice);
 
-                        for (int c = 0; c < player->getWeapons().size(); c++) {
-                            if (weaponChoice == toLowerString(player->getWeapons()[c]->getName())) {
+                    for (int c = 0; c < player->getWeapons().size(); c++) {
+                        if (weaponChoice == toLowerString(player->getWeapons()[c]->getName())) {
 
-                                int playerDmg = player->getDamage(player->getWeapons()[c]);
-                                currentEnemy->takeDamage(playerDmg);
+                            int playerDmg = player->getDamage(player->getWeapons()[c]);
+                            currentEnemy->takeDamage(playerDmg);
 
-                                player->clearBuffs();
+                            player->clearBuffs(false);
 
-                                system("CLS");
+                            system("CLS");
 
-                                isCurrentEnemyDead();
+                            isCurrentEnemyDead();
 
-                                if(currentEnemy != nullptr) {
+                            if(currentEnemy != nullptr) {
 
-                                    //Enemy attacks after player uses their weapon
+                                //Enemy attacks after player uses their weapon
 
-                                    std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
-                                    player->takeDamage(currentEnemy->getDamage());
+                                std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
+                                player->takeDamage(currentEnemy->getDamage());
                                     
-                                    if (player->getHealth() <= 0) {
-                                        std::cout << "--------------" << std::endl;
-                                        std::cout << " - YOU DIED - " << std::endl;
-                                        std::cout << "--------------" << std::endl;
-                                        return 0;
-                                    }
-
-
+                                if (player->getHealth() <= 0) {
+                                    std::cout << "--------------" << std::endl;
+                                    std::cout << " - YOU DIED - " << std::endl;
+                                    std::cout << "--------------" << std::endl;
+                                    return 0;
                                 }
 
-                                weaponSelected = true;
-                                break;
-                            }
-                        }
 
-                        if (weaponChoice == "back") {
-                            system("CLS");
+                            }
+
+                            weaponSelected = true;
                             break;
                         }
-
                     }
 
+                    if (weaponChoice == "back") {
+                        system("CLS");
+                        break;
+                    }
 
                 }
-                else if (userIn == "flee") {
 
-                    // number between 100 and 1
-                    int randomNum = rand() % 101;
 
-                    if (randomNum <= currentEnemy->getFleaChance()) {
-                        system("CLS");
-                        std::cout << "you escaped!" << std::endl;
-                        currentEnemy = nullptr;
-                        nextRoom = lastRoom;
-                    }
-                    else {
-                        system("CLS");
-                        std::cout <<"You failed to flee." << std::endl;
+            }
+            else if (userIn == "flee") {
 
-                        std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
-                        player->takeDamage(currentEnemy->getDamage());
+                // number between 100 and 1
+                int randomNum = rand() % 101;
 
-                        if (player->getHealth() <= 0) {
-                            std::cout << "--------------" << std::endl;
-                            std::cout << " - YOU DIED - " << std::endl;
-                            std::cout << "--------------" << std::endl;
-                            return 0;
-                        }
-                    }
+                if (randomNum <= currentEnemy->getFleaChance()) {
+                    system("CLS");
+                    std::cout << "you escaped!" << std::endl;
+                    currentEnemy = nullptr;
+                    nextRoom = lastRoom;
                 }
                 else {
                     system("CLS");
+                    std::cout <<"You failed to flee." << std::endl;
+
+                    std::cout << currentEnemy->getName() << " Attacks!" << std::endl;
+                    player->takeDamage(currentEnemy->getDamage());
+
+                    if (player->getHealth() <= 0) {
+                        std::cout << "--------------" << std::endl;
+                        std::cout << " - YOU DIED - " << std::endl;
+                        std::cout << "--------------" << std::endl;
+                        return 0;
+                    }
                 }
+            }
+            else {
+                system("CLS");
+            }
         }
         // this is in case we fled a combat encounter
         if (nextRoom != nullptr) {
@@ -340,7 +382,7 @@ int main()
                                     break;
                                 }
                                 else {
-                                    std::cout << "You can't aford that" << std::endl;
+                                    std::cout << "You can't afford that" << std::endl;
                                     break;
                                 }
 
@@ -384,12 +426,15 @@ int main()
                                     player->addGold(currentMerchant->getStackbles()[c]->getValue() * -1);
                                     itemPurchaseAtempted = true;
                                     std::cout << "\nYou bought " << currentMerchant->getStackbles()[c]->getName() << "!\n" << std::endl;
-                                    currentMerchant->greet();
 
                                     break;
                                 }
+                                else if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
+                                    std::cout << "Out of Stock" << std::endl;
+                                    break;
+                                }
                                 else {
-                                    std::cout << "You can't aford that" << std::endl;
+                                    std::cout << "You can't afford that" << std::endl;
                                     break;
                                 }
                             }
@@ -453,6 +498,8 @@ void isCurrentEnemyDead() {
 
         player->addGold(goldReward);
         player->addExp(expReward);
+
+        player->clearBuffs(true);
 
         currentRoom->deleteEnemy();
         currentEnemy = nullptr;

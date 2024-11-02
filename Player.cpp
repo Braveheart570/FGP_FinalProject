@@ -214,11 +214,17 @@ void Player::buffStat(effect inEffect, int effectPower) {
     }
 }
 
-void Player::clearBuffs() {
-    m_MarksmanshipBuff = 0;
-    m_StrengthBuff = 0;
-    m_FortitudeBuff = 0;
-    m_FortuneBuff = 0;
+void Player::clearBuffs(bool fortune) {
+    
+    if (fortune) {
+        m_FortuneBuff = 0;
+    }
+    else {
+        m_MarksmanshipBuff = 0;
+        m_StrengthBuff = 0;
+        m_FortitudeBuff = 0;
+    }
+    
 }
 
 int Player::getGold() const {
@@ -247,5 +253,5 @@ string Player::getName() const {
 }
 
 int Player::getFortune() const {
-    return m_Fortune;
+    return m_Fortune + m_FortuneBuff;
 }

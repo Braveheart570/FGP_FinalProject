@@ -35,7 +35,7 @@ public:
 
 	vector<StackableItem*> getStackbles() const;
 
-	void clearBuffs();
+	void clearBuffs(bool fortune);
 
 	void addExp(int inExp);
 
@@ -62,6 +62,7 @@ protected:
 	const vector<StackableItem*> m_stackableItems = {
 		new StackableItem("Potion",50, EFFECT_PLAYER_HEALTH, 10),
 		new StackableItem("Blade oil",50, EFFECT_STRENGTH, 1),
-		new StackableItem("Dynamite",50, EFFECT_ENEMY_HEALTH, 50)
+		new StackableItem("Dynamite",50, EFFECT_ENEMY_HEALTH, 50),
+		new StackableItem("Lucky Stone",50, EFFECT_FORTUNE, 10)
 	};
 };
