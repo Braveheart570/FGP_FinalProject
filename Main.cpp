@@ -52,7 +52,7 @@ int main()
     //player init
     player = new Player();
     player->addWeapon(new Weapon("sword", 10, 10, &statDefs[1]));
-    player->addWeapon(new Weapon("gun", 20, 50, &statDefs[0]));
+    player->addWeapon(new Weapon("gun", 20, 25, &statDefs[0]));
     player->getStackbles()[0]->addQuantity(1);
     player->getStackbles()[1]->addQuantity(1);
     player->getStackbles()[2]->addQuantity(1);
@@ -97,8 +97,6 @@ int main()
     linkRooms(rooms[5], rooms[7]);
     linkRooms(rooms[7], rooms[8]);
     linkRooms(rooms[8], rooms[9]);
-
-    linkRooms(rooms[0], rooms[6]);
     
     //init pointers
     currentRoom = rooms[0];
@@ -445,17 +443,18 @@ int main()
                                         exitBuyLoop = true;
                                         break;
                                     }
-                                    else if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
-                                        std::cout << "Out of Stock" << std::endl;
-                                        exitBuyLoop = true;
-                                        break;
-                                    }
                                     else {
                                         std::cout << "You can't afford that" << std::endl;
                                         exitBuyLoop = true;
                                         break;
                                     }
 
+                                }
+                                else if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
+                                    system("cls");
+                                    std::cout << "Out of Stock" << std::endl;
+                                    exitBuyLoop = true;
+                                    break;
                                 }
                             }
                         }
