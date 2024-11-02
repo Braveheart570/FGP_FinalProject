@@ -91,9 +91,6 @@ Player::Player() : Agent(100) {
     }
 
     system("CLS");
-
-   
-    
     levelup();
 
     m_Health = m_MaxHealth;

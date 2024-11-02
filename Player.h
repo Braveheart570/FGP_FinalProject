@@ -11,6 +11,9 @@
 using std::string;
 using std::vector;
 
+//in hind sight I should have had player and merchant share a base class instead of player and enemy
+// but its too late to change that now.
+
 class Player : public Agent {
 public:
 	Player();
@@ -59,6 +62,7 @@ protected:
 	int m_FortuneBuff = 0;
 
 	vector<Weapon*> m_Weapons;
+
 	const vector<StackableItem*> m_stackableItems = {
 		new StackableItem("Potion",10, EFFECT_PLAYER_HEALTH, 10),
 		new StackableItem("Blade oil",50, EFFECT_STRENGTH, 1),

@@ -38,8 +38,8 @@ int main()
     std::cout << "welcome to the game!" << std::endl;
     std::cout << "--------------------\n" << std::endl;
     std::cout << "How to play:" << std::endl;
-    std::cout << "type in what you want to do, type \"back\" if you want to back out of any menus (not navigation)" << std::endl;
-    std::cout << "\n pro tip:\n hit the up arrow on your keyboard to use your last command!\n\n" << std::endl;
+    std::cout << "Type in what you want to do, type \"back\" if you want to back out of any menus (not navigation)" << std::endl;
+    std::cout << "\nPro tip:\nHit the up arrow on your keyboard to use your last command!\n\n" << std::endl;
 
     if (yesNoQuestion("Read to play?") == false) {
         return 0;
@@ -51,40 +51,42 @@ int main()
 
     //player init
     player = new Player();
-    player->addWeapon(new Weapon("sword", 10, 10, &statDefs[1]));
-    player->addWeapon(new Weapon("gun", 20, 25, &statDefs[0]));
+    player->addWeapon(new Weapon("Sword", 10, 10, &statDefs[1]));
+    player->addWeapon(new Weapon("Gun", 20, 25, &statDefs[0]));
     player->getStackbles()[0]->addQuantity(1);
     player->getStackbles()[1]->addQuantity(1);
     player->getStackbles()[2]->addQuantity(1);
 
     //world init
-    rooms.push_back(new Room("Dark Room", "There is a light in another room"));
+    rooms.push_back(new Room("Dark Room", "There is a light in another room."));
     
     rooms.push_back(new Room("Lit Room", "The light is dim but you can see two paths in front of you."));
     
-    rooms.push_back(new Room("Stairway", "The steps are steep, but you climb to a wooden hatch"));
+    rooms.push_back(new Room("Stairway", "The steps are steep, but you climb to a wooden hatch. There is a grassy plain on the other side."));
     
-    rooms.push_back(new Room("Kitchen", "an old kitchen, cold and empty.", new Enemy("goblin", 50, 20, 10, 110, 60)));
+    rooms.push_back(new Room("Kitchen", "An old kitchen, cold and empty.", new Enemy("goblin", 50, 50, 10, 110, 60)));
 
-    rooms.push_back(new Room("Pantry", "A small empty pantry with an old man hiding in it.", new Npc("Old Man", "A scared old man hiding in a pantry")));
-    rooms[4]->getNpc()->addDialgue(new Dialogue("What are you doing here?", "Hiding from that thing. But you saved me, thanks you!"));
+    rooms.push_back(new Room("Pantry", "A small empty pantry with an old man hiding in it.", new Npc("Old Man", "An old man hiding in a pantry")));
+    rooms[4]->getNpc()->addDialgue(new Dialogue("What are you doing here?", "Hiding from that thing. But you saved me, thank you!"));
     rooms[4]->getNpc()->addDialgue(new Dialogue("Do you know how to get out of here?", "Go back the way you came and take the stairs."));
 
-    rooms.push_back(new Room("Grassy Plain", "an open patch of land with a wooden hatch on the ground. You see a tent in the distance set up next to a cart full of goods."));
+    rooms.push_back(new Room("Grassy Plain", "An open patch of land with a wooden hatch on the ground. You see a tent in the distance set up next to a cart full of goods and an evil looking building further in the distance."));
 
-    rooms.push_back(new Room("Merchant tent", "The camp of a traveling merchant", new Merchant("Traveling Merchant", "His eyes glisten at the sight of a potential customer.")));
+    rooms.push_back(new Room("Merchant tent", "The camp of a traveling merchant", new Merchant("Traveling Merchant", "His eyes widen at the sight of a potential customer.")));
     rooms[6]->getMerchant()->getStackbles()[0]->addQuantity(3);
     rooms[6]->getMerchant()->getStackbles()[1]->addQuantity(1);
     rooms[6]->getMerchant()->getStackbles()[3]->addQuantity(1);
     rooms[6]->getMerchant()->addWeapon(new Weapon("Silver Sword", 50, 100, &statDefs[1]));
     rooms[6]->getMerchant()->addWeapon(new Weapon("Rifle", 70, 200, &statDefs[0]));
 
-    rooms.push_back(new Room("Evil looking Building", " Your outside of a decidedly evil looking building with a frantic game deveoper standing outside.", new Npc("Game Developer", "He looks tired, frustrated, and frantic")));
-    rooms[7]->getNpc()->addDialgue(new Dialogue("Who are you?", "Not important! The fact is that this assignment is due in like 30 minutes and this game needs an ending. so get in there and kill something big or whatever"));
+    rooms.push_back(new Room("Evil looking Building", " Your outside of a decidedly evil looking building with a tired game deveoper standing outside the door.", new Npc("Game Developer", "He looks tired, tired, and tired. Did I mention tired?")));
+    rooms[7]->getNpc()->addDialgue(new Dialogue("Who are you?", "Not important! The fact is that this assignment is due in like 30 minutes and this game needs an ending. so get in there and kill something big or whatever!"));
     rooms[7]->getNpc()->addDialgue(new Dialogue("What is this place?", "it's whatever you want it to be man... I have so little time left I had to break the fourth wall just to get this thing finished!"));
-    rooms[7]->getNpc()->addDialgue(new Dialogue("Why did I wake up in a dark room?", "Because it was the first thing I thought of. What you want a story? HA! Budy I don't even have time to balance the combat in this game let alone add a story. At this point this is basically a glorified tech demo. But it works!"));
+    rooms[7]->getNpc()->addDialgue(new Dialogue("Why did I wake up in a dark room?", "Because it was the first thing I thought of. What you want a story? HA! Buddy I don't even have time to balance the combat in this game let alone add a story. At this point this is basically a glorified tech demo. But it works! And has absolutley no bugs whatsoever! ...probably."));
+    rooms[7]->getNpc()->addDialgue(new Dialogue("Who is the final boss?", "You know I was going to put some stereotypical final boss in there, but then I realized who the true villan of this game really is... maybe you'll have a better chance against it than I did."));
+    rooms[7]->getNpc()->addDialgue(new Dialogue("Any tips for beating the boss?", "Not really... But I hope you visited the merchant before you killed anything around here. Otherwise you might have a tough time."));
 
-    rooms.push_back(new Room("Boss Room", "Imagine a final boss room, ya thats basically it.", new Enemy("My Own Ambition", 500, 70, 200, 200, 10)));
+    rooms.push_back(new Room("Boss Room", "Imagine a final boss room, ya thats basically it.", new Enemy("Hubris", 500, 70, 200, 200, 10)));
     rooms.push_back(new Room("The End", "The end of the game."));
     
 
@@ -118,6 +120,7 @@ int main()
             nextRoom = nullptr;
         }
 
+        // --- win condition --- //
         if (currentRoom == rooms[9]) {
             system("CLS");
             std::cout << "--------------" << std::endl;
@@ -130,7 +133,6 @@ int main()
 
         // --- Combat header (only meant to show up once)--- //
         if (currentRoom->getEnemy() != nullptr) {
-            //system("CLS");
             string combatMessage = "A Foe Stands before you!";
             std::cout << string(combatMessage.length(), '-') << std::endl;
             std::cout << combatMessage << std::endl;
@@ -186,10 +188,8 @@ int main()
                                 player->takeDamage(player->getStackbles()[c]->getEffectPower() * -1);
                                 break;
                             case EFFECT_ENEMY_HEALTH:
-
                                 currentEnemy->takeDamage(player->getStackbles()[c]->getEffectPower());
                                 isCurrentEnemyDead();
-
                                 break;
                             case EFFECT_MARKSMANSHIP:
                                 player->buffStat(player->getStackbles()[c]->getItemEffect(), player->getStackbles()[c]->getEffectPower());
@@ -224,11 +224,16 @@ int main()
 
                 }
             }
+            // --- using weapon --- //
             else if (userIn == "use weapon") {
+
+                // print weapons
                 for (int c = 0; c < player->getWeapons().size();c++) {
                     std::cout << toLowerString(player->getWeapons()[c]->getName()) << std::endl;
                 }
                 bool weaponSelected = false;
+
+                // get weapon
                 while (weaponSelected == false) {
 
                     string weaponChoice;
@@ -278,6 +283,7 @@ int main()
 
 
             }
+            // --- flea --- //
             else if (userIn == "flee") {
 
                 // number between 100 and 1
@@ -308,7 +314,7 @@ int main()
                 system("CLS");
             }
         }
-        // this is in case we fled a combat encounter
+        // this is in case we fled a combat encounter, skips navigation
         if (nextRoom != nullptr) {
             continue;
         }
@@ -342,7 +348,7 @@ int main()
                 system("CLS");
                 
 
-
+                // --- store loop --- //
                 while (true) {
                     currentMerchant->greet();
                     std::cout << "\nWhat kind of Item's would you like to buy?\nWeapons\nItems" << std::endl;
@@ -350,9 +356,11 @@ int main()
                     std::getline(std::cin, userIn);
                     userIn = toLowerString(userIn);
 
+                    // --- exit store --- //
                     if (userIn == "back") {
                         break;
                     }
+                    // --- buy weapons --- //
                     else if (userIn == "weapons") {
 
                         // print merchant weapons
@@ -361,23 +369,27 @@ int main()
                             std::cout << currentMerchant->getWeapons()[c]->getName() << string(20 - currentMerchant->getWeapons()[c]->getName().size(), ' ') << currentMerchant->getWeapons()[c]->getDamage() << "\t" << currentMerchant->getWeapons()[c]->getValue() << std::endl;
 
                         }
-                        // buy loop
+                       
                         std::cout << "\nWhat would you like to buy?" << std::endl;
                         std::cout << "Gold: " << player->getGold() << std::endl;
 
+                        // buy loop
                         bool exitBuyLoop = false;
                         while (exitBuyLoop == false) {
                             std::getline(std::cin, userIn);
                             userIn = toLowerString(userIn);
 
+                            //back
                             if (userIn == "back") {
                                 system("CLS");
                                 exitBuyLoop = true;
                             }
 
+                            // get weapon
                             for (int c = 0; c < currentMerchant->getWeapons().size(); c++) {
                                 if (userIn == toLowerString(currentMerchant->getWeapons()[c]->getName())) {
                                     system("CLS");
+                                    //cheack purchase
                                     if (player->getGold() >= currentMerchant->getWeapons()[c]->getValue()) {
 
                                         std::cout << "\nyou bought the " << currentMerchant->getWeapons()[c]->getName() << "!\n" << std::endl;
@@ -389,7 +401,7 @@ int main()
                                         break;
                                     }
                                     else {
-                                        std::cout << "You can't afford that" << std::endl;
+                                        std::cout << "\nYou can't afford that\n" << std::endl;
                                         exitBuyLoop = true;
                                         break;
                                     }
@@ -402,6 +414,7 @@ int main()
                         
 
                     }
+                    // --- buy items --- //
                     else if (userIn == "items") {
 
                         std::cout << std::endl;
@@ -417,23 +430,28 @@ int main()
                             std::cout << "\t\t" << player->getStackbles()[c]->getQuantity() << std::endl;
                         }
 
-                        // buy loop
+                        
                         std::cout << "\nWhat would you like to buy?" << std::endl;
                         std::cout << "Gold: " << player->getGold() << std::endl;
 
+                        // buy loop
                         bool exitBuyLoop = false;
                         while (exitBuyLoop == false) {
                             std::getline(std::cin, userIn);
                             userIn = toLowerString(userIn);
 
+                            // back
                             if (userIn == "back") {
                                 system("CLS");
                                 exitBuyLoop = true;
                             }
 
+                            // get item
                             for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
                                 if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() > 0) {
                                     system("CLS");
+
+                                    //check purchase
                                     if (player->getGold() >= currentMerchant->getStackbles()[c]->getValue()) {
 
                                         currentMerchant->getStackbles()[c]->addQuantity(-1);
@@ -444,15 +462,16 @@ int main()
                                         break;
                                     }
                                     else {
-                                        std::cout << "You can't afford that" << std::endl;
+                                        std::cout << "\nYou can't afford that\n" << std::endl;
                                         exitBuyLoop = true;
                                         break;
                                     }
 
                                 }
+                                // out of stock condtion
                                 else if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
                                     system("cls");
-                                    std::cout << "Out of Stock" << std::endl;
+                                    std::cout << "\nOut of Stock\n" << std::endl;
                                     exitBuyLoop = true;
                                     break;
                                 }
@@ -472,17 +491,20 @@ int main()
         else {
             currentMerchant = nullptr;
         }
+
+        // --- navigation --- //
         system("CLS");
         currentRoom->displayRoom();
 
-
-
-        // mavigation
+        
 
         std::cout << "\nwhere would you like to go?\n" << std::endl;
+        // print exits
         for (int c = 0; c < currentRoom->getExits().size(); c++) {
             std::cout << " - " << currentRoom->getExits()[c]->getName() << std::endl;
         }
+
+        //get exits
         std::getline(std::cin,userIn);
         userIn = toLowerString(userIn);
         for (int c = 0; c < currentRoom->getExits().size();c++) {
@@ -505,7 +527,7 @@ void linkRooms(Room* room1, Room* room2) {
     room2->addExit(room1);
 }
 
-
+// death condition code
 void isCurrentEnemyDead() {
     if (currentEnemy->checkDead()) {
         std::cout << currentEnemy->getName() << " is dead" << std::endl;
