@@ -12,7 +12,7 @@ using std::string;
 using std::vector;
 
 //in hind sight I should have had player and merchant share a base class instead of player and enemy
-// but its too late to change that now.
+// too late to change that now.
 
 class Player : public Agent {
 public:
@@ -21,6 +21,8 @@ public:
 	void printStats();
 
 	void addWeapon(Weapon* newWeapon);
+
+	void removeWeapon(int index);
 
 	int getDamage(Weapon* held);
 
@@ -43,6 +45,7 @@ public:
 	void addExp(int inExp);
 
 	void levelup();
+
 
 protected:
 	string m_Name;

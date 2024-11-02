@@ -31,6 +31,9 @@ void linkRooms(Room* room1, Room* room2);
 
 bool yesNoQuestion(string question);
 
+//returns true if a
+bool aOrBQuestion(string question, string a, string b);
+
 int main()
 {
 
@@ -363,120 +366,245 @@ int main()
                     // --- buy weapons --- //
                     else if (userIn == "weapons") {
 
-                        // print merchant weapons
-                        std::cout << "\nWeapon              dmg\tvalue" << std::endl;
-                        for (int c = 0; c < currentMerchant->getWeapons().size(); c++) {
-                            std::cout << currentMerchant->getWeapons()[c]->getName() << string(20 - currentMerchant->getWeapons()[c]->getName().size(), ' ') << currentMerchant->getWeapons()[c]->getDamage() << "\t" << currentMerchant->getWeapons()[c]->getValue() << std::endl;
+                        if (aOrBQuestion("Buy or sell?", "buy", "sell")) {
 
-                        }
-                       
-                        std::cout << "\nWhat would you like to buy?" << std::endl;
-                        std::cout << "Gold: " << player->getGold() << std::endl;
-
-                        // buy loop
-                        bool exitBuyLoop = false;
-                        while (exitBuyLoop == false) {
-                            std::getline(std::cin, userIn);
-                            userIn = toLowerString(userIn);
-
-                            //back
-                            if (userIn == "back") {
-                                system("CLS");
-                                exitBuyLoop = true;
-                            }
-
-                            // get weapon
+                            // print merchant weapons
+                            std::cout << "\nWeapon              dmg\tvalue" << std::endl;
                             for (int c = 0; c < currentMerchant->getWeapons().size(); c++) {
-                                if (userIn == toLowerString(currentMerchant->getWeapons()[c]->getName())) {
+                                std::cout << currentMerchant->getWeapons()[c]->getName() << string(20 - currentMerchant->getWeapons()[c]->getName().size(), ' ') << currentMerchant->getWeapons()[c]->getDamage() << "\t" << currentMerchant->getWeapons()[c]->getValue() << std::endl;
+
+                            }
+
+                            std::cout << "\nWhat would you like to buy?" << std::endl;
+                            std::cout << "Gold: " << player->getGold() << std::endl;
+
+
+                            // buy loop
+                            bool exitBuyLoop = false;
+                            while (exitBuyLoop == false) {
+                                std::getline(std::cin, userIn);
+                                userIn = toLowerString(userIn);
+
+                                //back
+                                if (userIn == "back") {
                                     system("CLS");
-                                    //cheack purchase
-                                    if (player->getGold() >= currentMerchant->getWeapons()[c]->getValue()) {
-
-                                        std::cout << "\nyou bought the " << currentMerchant->getWeapons()[c]->getName() << "!\n" << std::endl;
-                                        player->addGold(currentMerchant->getWeapons()[c]->getValue() * -1);
-                                        player->addWeapon(currentMerchant->getWeapons()[c]);
-                                        currentMerchant->removeWeapon(c);
-
-                                        exitBuyLoop = true;
-                                        break;
-                                    }
-                                    else {
-                                        std::cout << "\nYou can't afford that\n" << std::endl;
-                                        exitBuyLoop = true;
-                                        break;
-                                    }
-
-
+                                    exitBuyLoop = true;
                                 }
+
+                                // get weapon
+                                for (int c = 0; c < currentMerchant->getWeapons().size(); c++) {
+                                    if (userIn == toLowerString(currentMerchant->getWeapons()[c]->getName())) {
+                                        system("CLS");
+                                        //cheack purchase
+                                        if (player->getGold() >= currentMerchant->getWeapons()[c]->getValue()) {
+
+                                            std::cout << "\nyou bought the " << currentMerchant->getWeapons()[c]->getName() << "!\n" << std::endl;
+                                            player->addGold(currentMerchant->getWeapons()[c]->getValue() * -1);
+                                            player->addWeapon(currentMerchant->getWeapons()[c]);
+                                            currentMerchant->removeWeapon(c);
+
+                                            exitBuyLoop = true;
+                                            break;
+                                        }
+                                        else {
+                                            std::cout << "\nYou can't afford that\n" << std::endl;
+                                            exitBuyLoop = true;
+                                            break;
+                                        }
+
+
+                                    }
+                                }
+
+                            }
+                        }
+                        else {
+
+
+                            // print player weapons
+                            std::cout << "\nWeapon              dmg\tvalue" << std::endl;
+                            for (int c = 0; c < player->getWeapons().size(); c++) {
+                                std::cout << player->getWeapons()[c]->getName() << string(20 - player->getWeapons()[c]->getName().size(), ' ') << player->getWeapons()[c]->getDamage() << "\t" << player->getWeapons()[c]->getValue() << std::endl;
+
+                            }
+
+                            std::cout << "\nWhat would you like to sell?" << std::endl;
+                            std::cout << "Gold: " << player->getGold() << std::endl;
+
+
+                            // sell loop
+                            bool exitSellLoop = false;
+                            while (exitSellLoop == false) {
+                                std::getline(std::cin, userIn);
+                                userIn = toLowerString(userIn);
+
+                                //back
+                                if (userIn == "back") {
+                                    system("CLS");
+                                    exitSellLoop = true;
+                                }
+
+                                // get weapon
+                                for (int c = 0; c < player->getWeapons().size(); c++) {
+                                    if (userIn == toLowerString(player->getWeapons()[c]->getName())) {
+                                        system("CLS");
+                                        //cheack purchase
+                                        if (currentMerchant->getGold() >= player->getWeapons()[c]->getValue()) {
+
+                                            std::cout << "\nyou sold the " << player->getWeapons()[c]->getName() << "!\n" << std::endl;
+                                            currentMerchant->addGold(player->getWeapons()[c]->getValue() * -1);
+                                            player->addGold(currentMerchant->getStackbles()[c]->getValue());
+                                            currentMerchant->addWeapon(player->getWeapons()[c]);
+                                            player->removeWeapon(c);
+
+                                            exitSellLoop = true;
+                                            break;
+                                        }
+                                        else {
+                                            std::cout << "\nMerchant can't afford that\n" << std::endl;
+                                            exitSellLoop = true;
+                                            break;
+                                        }
+
+
+                                    }
+                                }
+
                             }
 
                         }
+
+                        
                         
 
                     }
                     // --- buy items --- //
                     else if (userIn == "items") {
 
-                        std::cout << std::endl;
+                        if (aOrBQuestion("Buy or sell?", "buy", "sell")) {
+                            //print merchant items
+                            std::cout << "\nitem                value\tmerchant\tyou" << std::endl;
+                            for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
+                                if (currentMerchant->getStackbles()[c]->getQuantity() <= 0 && player->getStackbles()[c]->getQuantity() <= 0) {
+                                    continue;
+                                }
 
-                        //print merchant items
-                        std::cout << "item                value\tmerchant\tyou" << std::endl;
-                        for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
-                            if (currentMerchant->getStackbles()[c]->getQuantity() <= 0 && player->getStackbles()[c]->getQuantity() <= 0) {
-                                continue;
+                                std::cout << currentMerchant->getStackbles()[c]->getName() << string(20 - currentMerchant->getStackbles()[c]->getName().length(), ' ') << currentMerchant->getStackbles()[c]->getValue() << "\t\t" << currentMerchant->getStackbles()[c]->getQuantity();
+                                std::cout << "\t\t" << player->getStackbles()[c]->getQuantity() << std::endl;
                             }
-                            
-                            std::cout << currentMerchant->getStackbles()[c]->getName() << string(20 - currentMerchant->getStackbles()[c]->getName().length(), ' ') << currentMerchant->getStackbles()[c]->getValue() << "\t\t" << currentMerchant->getStackbles()[c]->getQuantity();
-                            std::cout << "\t\t" << player->getStackbles()[c]->getQuantity() << std::endl;
+
+
+                            std::cout << "\nWhat would you like to buy?" << std::endl;
+                            std::cout << "Gold: " << player->getGold() << std::endl;
+
+                            // buy loop
+                            bool exitBuyLoop = false;
+                            while (exitBuyLoop == false) {
+                                std::getline(std::cin, userIn);
+                                userIn = toLowerString(userIn);
+
+                                // back
+                                if (userIn == "back") {
+                                    system("CLS");
+                                    exitBuyLoop = true;
+                                }
+
+                                // get item
+                                for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
+                                    if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() > 0) {
+                                        system("CLS");
+
+                                        //check purchase
+                                        if (player->getGold() >= currentMerchant->getStackbles()[c]->getValue()) {
+
+                                            currentMerchant->getStackbles()[c]->addQuantity(-1);
+                                            player->getStackbles()[c]->addQuantity(1);
+                                            player->addGold(currentMerchant->getStackbles()[c]->getValue() * -1);
+                                            std::cout << "\nYou bought " << currentMerchant->getStackbles()[c]->getName() << "!\n" << std::endl;
+                                            exitBuyLoop = true;
+                                            break;
+                                        }
+                                        else {
+                                            std::cout << "\nYou can't afford that\n" << std::endl;
+                                            exitBuyLoop = true;
+                                            break;
+                                        }
+
+                                    }
+                                    // out of stock condtion
+                                    else if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
+                                        system("cls");
+                                        std::cout << "\nOut of Stock\n" << std::endl;
+                                        exitBuyLoop = true;
+                                        break;
+                                    }
+                                }
+                            }
                         }
+                        else {
+                            //print player items
+                            std::cout << "\nitem                value\tmerchant\tyou" << std::endl;
+                            for (int c = 0; c < player->getStackbles().size(); c++) {
+                                if (player->getStackbles()[c]->getQuantity() <= 0 && currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
+                                    continue;
+                                }
+
+                                std::cout << currentMerchant->getStackbles()[c]->getName() << string(20 - currentMerchant->getStackbles()[c]->getName().length(), ' ') << currentMerchant->getStackbles()[c]->getValue() << "\t\t" << currentMerchant->getStackbles()[c]->getQuantity();
+                                std::cout << "\t\t" << player->getStackbles()[c]->getQuantity() << std::endl;
+                            }
+
+
+                            std::cout << "\nWhat would you like to sell?" << std::endl;
+                            std::cout << "Gold: " << player->getGold() << std::endl;
+
+                            // buy loop
+                            bool exitSellLoop = false;
+                            while (exitSellLoop == false) {
+                                std::getline(std::cin, userIn);
+                                userIn = toLowerString(userIn);
+
+                                // back
+                                if (userIn == "back") {
+                                    system("CLS");
+                                    exitSellLoop = true;
+                                }
+
+                                // get item
+                                for (int c = 0; c < player->getStackbles().size(); c++) {
+                                    if (userIn == toLowerString(player->getStackbles()[c]->getName()) && player->getStackbles()[c]->getQuantity() > 0) {
+                                        system("CLS");
+
+                                        //check purchase
+                                        if (currentMerchant->getGold() >= player->getStackbles()[c]->getValue()) {
+
+                                            player->getStackbles()[c]->addQuantity(-1);
+                                            currentMerchant->getStackbles()[c]->addQuantity(1);
+                                            currentMerchant->addGold(currentMerchant->getStackbles()[c]->getValue() * -1);
+                                            player->addGold(currentMerchant->getStackbles()[c]->getValue());
+                                            std::cout << "\nYou sold " << player->getStackbles()[c]->getName() << "!\n" << std::endl;
+                                            exitSellLoop = true;
+                                            break;
+                                        }
+                                        else {
+                                            std::cout << "\Merchant can't afford that\n" << std::endl;
+                                            exitSellLoop = true;
+                                            break;
+                                        }
+
+                                    }
+                                    // out of stock condtion
+                                    else if (userIn == toLowerString(player->getStackbles()[c]->getName()) && player->getStackbles()[c]->getQuantity() <= 0) {
+                                        system("cls");
+                                        std::cout << "\nYou are out of those\n" << std::endl;
+                                        exitSellLoop = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
 
                         
-                        std::cout << "\nWhat would you like to buy?" << std::endl;
-                        std::cout << "Gold: " << player->getGold() << std::endl;
-
-                        // buy loop
-                        bool exitBuyLoop = false;
-                        while (exitBuyLoop == false) {
-                            std::getline(std::cin, userIn);
-                            userIn = toLowerString(userIn);
-
-                            // back
-                            if (userIn == "back") {
-                                system("CLS");
-                                exitBuyLoop = true;
-                            }
-
-                            // get item
-                            for (int c = 0; c < currentMerchant->getStackbles().size(); c++) {
-                                if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() > 0) {
-                                    system("CLS");
-
-                                    //check purchase
-                                    if (player->getGold() >= currentMerchant->getStackbles()[c]->getValue()) {
-
-                                        currentMerchant->getStackbles()[c]->addQuantity(-1);
-                                        player->getStackbles()[c]->addQuantity(1);
-                                        player->addGold(currentMerchant->getStackbles()[c]->getValue() * -1);
-                                        std::cout << "\nYou bought " << currentMerchant->getStackbles()[c]->getName() << "!\n" << std::endl;
-                                        exitBuyLoop = true;
-                                        break;
-                                    }
-                                    else {
-                                        std::cout << "\nYou can't afford that\n" << std::endl;
-                                        exitBuyLoop = true;
-                                        break;
-                                    }
-
-                                }
-                                // out of stock condtion
-                                else if (userIn == toLowerString(currentMerchant->getStackbles()[c]->getName()) && currentMerchant->getStackbles()[c]->getQuantity() <= 0) {
-                                    system("cls");
-                                    std::cout << "\nOut of Stock\n" << std::endl;
-                                    exitBuyLoop = true;
-                                    break;
-                                }
-                            }
-                        }
                         
 
                     }
@@ -562,6 +690,22 @@ bool yesNoQuestion(string question) {
             return true;
         }
         else if (awnser == "n") {
+            return false;
+        }
+    }
+}
+
+bool aOrBQuestion(string question, string a, string b) {
+    string awnser;
+
+    while (true) {
+        std::cout << "\n" << question << std::endl;
+        std::getline(std::cin, awnser);
+        awnser = toLowerString(awnser);
+        if (awnser == a) {
+            return true;
+        }
+        else if (awnser == b) {
             return false;
         }
     }

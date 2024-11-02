@@ -24,3 +24,11 @@ void Merchant::removeWeapon(int index) {
 void Merchant::addWeapon(Weapon* newWeapon) {
 	m_Weapons.push_back(newWeapon);
 }
+
+int Merchant::getGold() const {
+	return m_Gold;
+}
+
+void Merchant::addGold(int inGold) {
+	m_Gold += inGold;
+}

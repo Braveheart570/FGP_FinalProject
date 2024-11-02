@@ -18,7 +18,12 @@ public:
 
 	void addWeapon(Weapon* newWeapon);
 
+	int getGold() const;
+
+	void addGold(int inGold);
+
 protected:
+	int m_Gold = 1000;
 	vector<Weapon*> m_Weapons;
 	const vector<StackableItem*> m_stackableItems = {
 		new StackableItem("Potion",10, EFFECT_PLAYER_HEALTH, 10),

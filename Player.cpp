@@ -252,3 +252,8 @@ string Player::getName() const {
 int Player::getFortune() const {
     return m_Fortune + m_FortuneBuff;
 }
+
+void Player::removeWeapon(int index) {
+    m_Weapons[index] = nullptr;
+    m_Weapons.erase(m_Weapons.begin() + index);
+}
